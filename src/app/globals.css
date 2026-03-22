@@ -1,0 +1,147 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Archivo:wght@100..900&display=swap');
+@import "tailwindcss";
+
+
+:root {
+  --primary-heading:#00334E;
+  --secound-heading:#CE598C;
+}
+
+.font-architect {
+  font-family: 'Architects Daughter', cursive;
+}
+
+.font-archivo {
+  font-family: 'Archivo', sans-serif;
+}
+
+
+.text-primary{
+  color: var(--primary-heading);
+}
+
+.text-secound{
+  color: var(--secound-heading);
+
+}
+
+/* Auto scroll animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+}
+
+.btn{
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 50px;
+  border-top-right-radius: 50px;
+}
+
+.btn2{
+border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+}
+
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+
+
+
+/* ── About Us Button ── */
+.about-btn {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease;
+}
+.about-btn:hover { transform: scale(1.06); }
+.about-btn:active { transform: scale(0.97); }
+.about-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(-100%);
+  transition: transform 0.35s ease;
+}
+.about-btn:hover::before { transform: translateX(0); }
+
+/* ── Reach Out Button ── */
+.reach-btn {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease;
+}
+.reach-btn:hover { transform: scale(1.06); }
+.reach-btn:active { transform: scale(0.97); }
+.reach-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #004d73;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  border-radius: inherit;
+  z-index: 0;
+}
+.reach-btn:hover::before { transform: scaleX(1); }
+.reach-btn span {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+}
+
+
+
+.nav-link {
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+  border-radius: 9999px;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link:hover {
+  color: #0072B0;
+}
+
