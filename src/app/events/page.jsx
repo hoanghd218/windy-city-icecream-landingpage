@@ -463,6 +463,7 @@ export default function Events() {
               <img
                 key={i}
                 src={`/image${item}.png`}
+                alt={`Ice cream catering event photo ${item}`}
                 className="w-[267px] h-[402px] object-cover rounded-xl flex-shrink-0"
               />
             ))}

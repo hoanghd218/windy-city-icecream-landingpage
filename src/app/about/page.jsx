@@ -578,6 +578,7 @@ export default function About() {
             <img
               key={i}
               src={`/image${item}.png`}
+              alt={`Windy City Ice Cream event photo ${item}`}
               className="w-[267px] h-[300px] object-cover rounded-xl flex-shrink-0"
             />
           ))}

@@ -297,7 +297,7 @@ export default function Conatct() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="label">
-                      I'm Interested in <span className="req">(Required)</span>
+                      I&apos;m Interested in <span className="req">(Required)</span>
                     </label>
                     <div className="flex gap-6 mt-2 flex-wrap">
                       {["An ice cream truck", "An ice cream cart", "Both"].map(
@@ -316,7 +316,7 @@ export default function Conatct() {
 
                   <div>
                     <label className="label">
-                      Whay's the nature of the event ?{" "}
+                      What&apos;s the nature of the event?{" "}
                       <span className="req">(Required)</span>
                     </label>
                     <select className="input mt-2">
