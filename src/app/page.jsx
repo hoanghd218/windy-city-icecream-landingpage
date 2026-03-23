@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import "./globals.css";
 import Footer from "../components/Footer";
+import Chatbot from "../components/Chatbot";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -1059,6 +1060,7 @@ export default function Home() {
       </section>
 
       <Footer />
+      <Chatbot />
     </>
   );
 }

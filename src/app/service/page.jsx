@@ -1,6 +1,7 @@
 "use client";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Chatbot from "../../components/Chatbot";
 import Image from "next/image";
 import { useRef } from "react";
 import { useEffect } from "react";
@@ -324,6 +325,7 @@ gsap.from(serviceTextRef.current?.children || [], {
       </section>
 
       <Footer />
+      <Chatbot />
     </>
   );
 }

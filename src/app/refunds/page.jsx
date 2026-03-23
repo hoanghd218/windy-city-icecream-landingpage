@@ -1,6 +1,7 @@
 "use client";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Chatbot from "../../components/Chatbot";
 import Image from "next/image";
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
@@ -129,6 +130,7 @@ export default function Refunds() {
       </section>
 
       <Footer />
+      <Chatbot />
     </>
   );
 }
