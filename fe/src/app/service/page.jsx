@@ -21,24 +21,24 @@ export default function Service() {
 
   const scrollRef = useRef(null);
 
-  // // Auto scroll logic
   useEffect(() => {
     const container = scrollRef.current;
+    if (!container) return;
     let scrollAmount = 0;
+    let rafId;
+    let lastTime = performance.now();
 
-    const scroll = () => {
-      if (!container) return;
-      scrollAmount += 0.5;
+    const scroll = (now) => {
+      const dt = now - lastTime;
+      lastTime = now;
+      scrollAmount += (dt / 20) * 0.5;
+      if (scrollAmount >= container.scrollWidth / 2) scrollAmount = 0;
       container.scrollLeft = scrollAmount;
-
-      // reset for infinite effect
-      if (scrollAmount >= container.scrollWidth / 2) {
-        scrollAmount = 0;
-      }
+      rafId = requestAnimationFrame(scroll);
     };
 
-    const interval = setInterval(scroll, 20);
-    return () => clearInterval(interval);
+    rafId = requestAnimationFrame(scroll);
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
   /* fifth section */
@@ -49,51 +49,26 @@ export default function Service() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const trigger = { trigger: textWrapRef.current, start: "top 80%" };
+      const [p1, h2, p2] = textWrapRef.current.children;
 
-      // Circle - scale thi aave
-      gsap.fromTo(
-        circleRef.current,
-        { scale: 0, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 1,
-          ease: "expo.out",
-          scrollTrigger: { trigger: circleRef.current, start: "top 85%" },
-        },
-      );
+      gsap.set(circleRef.current, { scale: 0, opacity: 0, force3D: true });
+      gsap.set([p1, h2, p2, s5BtnRef.current], { opacity: 0, force3D: true });
+      gsap.set(p1, { y: -40 });
+      gsap.set(h2, { y: -50 });
+      gsap.set(p2, { y: 40 });
+      gsap.set(s5BtnRef.current, { y: 30, scale: 0.85 });
 
-      // "Woman-owned business" - p tag
-      gsap.from(textWrapRef.current.children[0], {
-        scrollTrigger: trigger,
-        y: -40,
-        opacity: 0,
-        duration: 0.7,
-        ease: "power3.out",
+      gsap.to(circleRef.current, {
+        scale: 1,
+        opacity: 1,
+        duration: 1,
+        ease: "expo.out",
+        scrollTrigger: { trigger: circleRef.current, start: "top 85%" },
       });
 
-      // Heading - h2
-      gsap.from(textWrapRef.current.children[1], {
-        scrollTrigger: trigger,
-        y: -50,
-        opacity: 0,
-        duration: 0.8,
-        delay: 0.12,
-        ease: "power3.out",
-      });
-
-      // Paragraph
-      gsap.from(textWrapRef.current.children[2], {
-        scrollTrigger: trigger,
-        y: 40,
-        opacity: 0,
-        duration: 0.7,
-        delay: 0.24,
-        ease: "power3.out",
-      });
-
-      // Button - alag set + to sathe
-      gsap.set(s5BtnRef.current, { opacity: 0, y: 30, scale: 0.85 });
+      gsap.to(p1, { scrollTrigger: trigger, y: 0, opacity: 1, duration: 0.7, ease: "power3.out" });
+      gsap.to(h2, { scrollTrigger: trigger, y: 0, opacity: 1, duration: 0.8, delay: 0.12, ease: "power3.out" });
+      gsap.to(p2, { scrollTrigger: trigger, y: 0, opacity: 1, duration: 0.7, delay: 0.24, ease: "power3.out" });
       gsap.to(s5BtnRef.current, {
         scrollTrigger: trigger,
         opacity: 1,
@@ -115,49 +90,37 @@ export default function Service() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const items = wrapRef.current.children;
-      gsap.from(items[0], {
-        y: -80,
-        opacity: 0,
-        duration: 2,
-        ease: "power3.out",
-        scrollTrigger: { trigger: wrapRef.current, start: "top 80%" },
-      });
-      gsap.from(items[1], {
-        x: -120,
-        opacity: 0,
-        duration: 2,
-        ease: "power3.out",
-        scrollTrigger: { trigger: wrapRef.current, start: "top 80%" },
-      });
-      gsap.from(items[2], {
-        y: 80,
-        opacity: 0,
-        duration: 2,
-        ease: "power3.out",
-        scrollTrigger: { trigger: wrapRef.current, start: "top 80%" },
-      });
-      gsap.from(leftImgRef.current, {
-        x: -200,
-        opacity: 0,
+      const st = { trigger: wrapRef.current, start: "top 80%" };
+
+      gsap.set([items[0], items[1], items[2], leftImgRef.current, rightImgRef.current], { opacity: 0, force3D: true });
+      gsap.set(items[0], { y: -80 });
+      gsap.set(items[1], { x: -120 });
+      gsap.set(items[2], { y: 80 });
+      gsap.set(leftImgRef.current, { x: -200 });
+      gsap.set(rightImgRef.current, { x: 200 });
+
+      gsap.to(items[0], { scrollTrigger: st, y: 0, opacity: 1, duration: 1.2, ease: "power3.out" });
+      gsap.to(items[1], { scrollTrigger: st, x: 0, opacity: 1, duration: 1.2, ease: "power3.out" });
+      gsap.to(items[2], { scrollTrigger: st, y: 0, opacity: 1, duration: 1.2, ease: "power3.out" });
+      gsap.to(leftImgRef.current, {
+        scrollTrigger: st,
+        x: 0,
+        opacity: 1,
         duration: 1,
         ease: "power3.out",
-        scrollTrigger: { trigger: wrapRef.current, start: "top 80%" },
+        onComplete: () => {
+          gsap.to(leftImgRef.current, { y: -20, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        },
       });
-      gsap.from(rightImgRef.current, {
-        x: 200,
-        opacity: 0,
+      gsap.to(rightImgRef.current, {
+        scrollTrigger: st,
+        x: 0,
+        opacity: 1,
         duration: 1,
         ease: "power3.out",
-        scrollTrigger: { trigger: wrapRef.current, start: "top 80%" },
-      });
-      [leftImgRef.current, rightImgRef.current].forEach((el, i) => {
-        gsap.to(el, {
-          y: -20,
-          duration: 2 + i * 0.3,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
+        onComplete: () => {
+          gsap.to(rightImgRef.current, { y: -20, duration: 2.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        },
       });
     });
     return () => ctx.revert();
@@ -171,31 +134,23 @@ const serviceTextRef = useRef(null);
 
 useEffect(() => {
   const ctx = gsap.context(() => {
-    // BG - top thi neeche reveal (same as about page)
-    gsap.fromTo(
-      serviceBgRef.current,
-      { clipPath: "ellipse(120% 0% at 50% 0%)" },
-      { clipPath: "ellipse(200% 200% at 50% 0%)", duration: 3, ease: "power3.out" }
-    );
+    const textChildren = serviceTextRef.current?.children || [];
 
-    // Map - bottom thi upar
-    gsap.from(serviceMapRef.current, {
-      y: 120,
-      opacity: 0,
-      duration: 1.1,
-      delay: 0.5,
+    gsap.to(serviceMapRef.current, {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      delay: 0.2,
       ease: "power3.out",
     });
 
-    // Text - top thi neeche stagger sathe
-gsap.from(serviceTextRef.current?.children || [], {
-  y: -50,
-  opacity: 0,
-  stagger: 0.15,
-  duration: 0.9,
-  delay: 0.3,
-  ease: "power3.out",
-});
+    gsap.to(textChildren, {
+      y: 0,
+      opacity: 1,
+      stagger: 0.12,
+      duration: 0.8,
+      ease: "power3.out",
+    });
   });
   return () => ctx.revert();
 }, []);
@@ -206,7 +161,10 @@ gsap.from(serviceTextRef.current?.children || [], {
          <div ref={serviceBgRef} className="bg-[#57CEF7] pt-2 md:pt-[1px] pb-32 md:pb-60">
           <Header />
 
-          <div className="max-w-[1000px] mx-auto px-4 text-center mt-10 md:mt-15" ref={serviceTextRef}>
+          <div
+            className="max-w-[1000px] mx-auto px-4 text-center mt-10 md:mt-15 *:opacity-0 *:-translate-y-[50px] *:will-change-transform"
+            ref={serviceTextRef}
+          >
             <h1 className="text-3xl md:text-[60px] font-bold text-primary font-archivo mb-4 uppercase">
               Service Area
             </h1>
@@ -232,7 +190,7 @@ gsap.from(serviceTextRef.current?.children || [], {
         <div className="overflow-hidden w-full -mt-24 md:-mt-50 flex justify-center">
     <iframe
       ref={serviceMapRef}
-      className="w-full max-w-[1247px] h-[300px] md:h-[600px] rounded-4xl"
+      className="w-full max-w-[1247px] h-[300px] md:h-[600px] rounded-4xl opacity-0 translate-y-[120px] will-change-transform"
       src="https://maps.google.com/maps?q=Chicago&t=&z=11&ie=UTF8&iwloc=&output=embed"
       loading="lazy"
     ></iframe>

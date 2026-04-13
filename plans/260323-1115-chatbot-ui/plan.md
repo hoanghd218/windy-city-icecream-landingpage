@@ -7,6 +7,7 @@ effort: 2h
 branch: main
 tags: [ui, component, chatbot]
 created: 2026-03-23
+blockedBy: [260413-1430-chatbot-backend]
 ---
 
 # Chatbot UI Component

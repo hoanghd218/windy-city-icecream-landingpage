@@ -169,40 +169,7 @@ export default function Conatct() {
   const serviceMapRef = useRef(null);
   const serviceTextRef = useRef(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // BG - top thi neeche reveal (same as about page)
-      gsap.fromTo(
-        serviceBgRef.current,
-        { clipPath: "ellipse(120% 0% at 50% 0%)" },
-        {
-          clipPath: "ellipse(200% 200% at 50% 0%)",
-          duration: 3,
-          ease: "power3.out",
-        },
-      );
-
-      // Map - bottom thi upar
-      gsap.from(serviceMapRef.current, {
-        y: 120,
-        opacity: 0,
-        duration: 1.1,
-        delay: 0.5,
-        ease: "power3.out",
-      });
-
-      // Text - top thi neeche stagger sathe
-      gsap.from(serviceTextRef.current?.children || [], {
-        y: -50,
-        opacity: 0,
-        stagger: 0.15,
-        duration: 0.9,
-        delay: 0.3,
-        ease: "power3.out",
-      });
-    });
-    return () => ctx.revert();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -289,9 +256,7 @@ export default function Conatct() {
                       Time of event (or TBD){" "}
                       <span className="req">(Required)</span>
                     </label>
-                    <select className="input">
-                      <option>Select Time of Event</option>
-                    </select>
+                    <input className="input" placeholder="e.g. 3:00 PM or TBD" />
                   </div>
                 </div>
 
