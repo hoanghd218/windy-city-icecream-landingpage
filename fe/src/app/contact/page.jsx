@@ -27,6 +27,7 @@ function ContactPageInner() {
     email: searchParams.get("email") || "",
     phone: searchParams.get("phone") || "",
     zip: searchParams.get("zip") || "",
+    address: searchParams.get("address") || "",
     people: searchParams.get("people") || "",
     interest: searchParams.get("interest") || "",
     hours: searchParams.get("hours") || "",
@@ -261,7 +262,7 @@ function ContactPageInner() {
                 <div>
                   <label className="label">Address of event</label>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <input className="input md:col-span-2" />
+                    <input className="input md:col-span-2" placeholder="Street address" defaultValue={prefill.address} />
                     <input className="input" placeholder="zip code" defaultValue={prefill.zip} />
                   </div>
                 </div>

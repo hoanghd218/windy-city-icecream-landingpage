@@ -22,11 +22,11 @@ const PICKERS = {
       { label: "4+ hr", value: "4 hours" },
     ],
   },
-  zip: { type: "zip" },
+  address: { type: "address" },
   contact: { type: "contact" },
 };
 
-const MARKER_RE = /\[PICK:(service|duration|zip|contact)\]/;
+const MARKER_RE = /\[PICK:(service|duration|address|contact)\]/;
 
 // Strip the marker from text for display, and return the marker kind (if any).
 export function extractPicker(text) {
@@ -94,47 +94,59 @@ function ContactForm({ onPick, disabled }) {
   );
 }
 
-export function ChatbotQuickPick({ kind, onPick, disabled }) {
+function AddressForm({ onPick, disabled }) {
+  const [street, setStreet] = useState("");
   const [zip, setZip] = useState("");
+  const valid = street.trim().length >= 5 && /^\d{5}$/.test(zip);
+
+  const submit = () => {
+    if (!valid) return;
+    onPick(`Address: ${street.trim()} | ZIP: ${zip}`);
+  };
+
+  return (
+    <div className="flex flex-col gap-2 mt-2 w-full max-w-xs">
+      <input
+        type="text"
+        placeholder="Street address (e.g. 123 Main St, Chicago, IL)"
+        value={street}
+        onChange={(e) => setStreet(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && submit()}
+        disabled={disabled}
+        className="text-sm font-archivo px-3 py-1.5 rounded-md bg-white border border-gray-300 outline-none focus:ring-2 focus:ring-[#CE598C]/30 disabled:opacity-50"
+      />
+      <input
+        type="text"
+        inputMode="numeric"
+        maxLength={5}
+        placeholder="5-digit ZIP"
+        value={zip}
+        onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 5))}
+        onKeyDown={(e) => e.key === "Enter" && submit()}
+        disabled={disabled}
+        className="text-sm font-archivo px-3 py-1.5 rounded-md bg-white border border-gray-300 outline-none focus:ring-2 focus:ring-[#CE598C]/30 disabled:opacity-50"
+      />
+      <button
+        onClick={submit}
+        disabled={disabled || !valid}
+        className="px-3 py-1.5 rounded-full text-xs font-archivo font-semibold text-white cursor-pointer disabled:opacity-40"
+        style={{ backgroundColor: "var(--secound-heading)" }}
+      >
+        Send
+      </button>
+    </div>
+  );
+}
+
+export function ChatbotQuickPick({ kind, onPick, disabled }) {
   const config = PICKERS[kind];
   if (!config) return null;
 
   if (config.type === "contact") {
     return <ContactForm onPick={onPick} disabled={disabled} />;
   }
-
-  if (config.type === "zip") {
-    const submit = () => {
-      if (/^\d{5}$/.test(zip)) {
-        onPick(`My ZIP code is ${zip}`);
-        setZip("");
-      }
-    };
-    return (
-      <div className="flex gap-2 mt-2">
-        <input
-          type="text"
-          inputMode="numeric"
-          pattern="\d{5}"
-          maxLength={5}
-          placeholder="5-digit ZIP"
-          value={zip}
-          onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 5))}
-          onKeyDown={(e) => e.key === "Enter" && submit()}
-          disabled={disabled}
-          className="flex-1 text-sm font-archivo px-3 py-1.5 rounded-full bg-white border border-gray-300 outline-none focus:ring-2 focus:ring-[#CE598C]/30 disabled:opacity-50"
-          aria-label="Enter ZIP code"
-        />
-        <button
-          onClick={submit}
-          disabled={disabled || !/^\d{5}$/.test(zip)}
-          className="px-3 py-1.5 rounded-full text-xs font-archivo font-semibold text-white cursor-pointer disabled:opacity-40"
-          style={{ backgroundColor: "var(--secound-heading)" }}
-        >
-          Send
-        </button>
-      </div>
-    );
+  if (config.type === "address") {
+    return <AddressForm onPick={onPick} disabled={disabled} />;
   }
 
   return (

@@ -6,7 +6,7 @@ import { getRedis } from './kv-client';
 const CACHE_TTL_SECONDS = 60 * 60 * 24 * 30; // 30 days
 const CACHE_PREFIX = 'travel:';
 
-export async function getTravelTimeFromZip(zipCode) {
+export async function getTravelTimeFromZip(zipCode, streetAddress = '') {
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
   const origin = process.env.WAREHOUSE_ADDRESS;
 
@@ -14,10 +14,15 @@ export async function getTravelTimeFromZip(zipCode) {
     return { error: 'Travel time service not configured', zipCode };
   }
 
-  // Cache check
+  // Build destination: prefer "street, zip, USA" when address provided
+  const destination = streetAddress
+    ? `${streetAddress.trim()}, ${zipCode}, USA`
+    : `${zipCode}, USA`;
+
+  // Cache by ZIP only — street precision rarely changes the tier-based fee
   const redis = getRedis();
   const cacheKey = `${CACHE_PREFIX}${zipCode}`;
-  if (redis) {
+  if (redis && !streetAddress) {
     const cached = await redis.get(cacheKey);
     if (cached) return cached;
   }
@@ -26,7 +31,7 @@ export async function getTravelTimeFromZip(zipCode) {
   const url =
     `https://maps.googleapis.com/maps/api/distancematrix/json` +
     `?origins=${encodeURIComponent(origin)}` +
-    `&destinations=${encodeURIComponent(zipCode + ', USA')}` +
+    `&destinations=${encodeURIComponent(destination)}` +
     `&units=imperial` +
     `&key=${apiKey}`;
 
@@ -49,12 +54,14 @@ export async function getTravelTimeFromZip(zipCode) {
 
   const result = {
     zipCode,
+    streetAddress: streetAddress || null,
     travelTimeMinutes: Math.round(elem.duration.value / 60),
     distanceMiles: Math.round(elem.distance.value / 1609),
     destinationAddress: data.destination_addresses?.[0],
   };
 
-  if (redis) {
+  // Only cache the ZIP-only resolution to keep the cache tier-stable
+  if (redis && !streetAddress) {
     await redis.set(cacheKey, result, { ex: CACHE_TTL_SECONDS });
   }
 

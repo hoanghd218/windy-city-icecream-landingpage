@@ -49,15 +49,24 @@ export function buildChatTools({ sessionId } = {}) {
     get_travel_time_from_zip: tool({
       description:
         'Look up one-way driving time in minutes from the Windy City warehouse ' +
-        'to a US ZIP code. Use this whenever the user provides a ZIP code or asks ' +
-        'about travel fees. Result feeds into calculate_estimate.',
+        'to the event location. Use this whenever the user provides their event ' +
+        'address. ALWAYS pass the street address WITH the ZIP code (both required) ' +
+        'for an accurate quote. Result feeds into calculate_estimate.',
       inputSchema: z.object({
+        streetAddress: z
+          .string()
+          .min(5)
+          .max(200)
+          .describe(
+            'Full street address of the event location (e.g. "123 Main St, Chicago, IL"). REQUIRED.'
+          ),
         zipCode: z
           .string()
           .regex(/^\d{5}$/, '5-digit US ZIP code')
-          .describe('5-digit US ZIP code of the event location'),
+          .describe('5-digit US ZIP code of the event location. REQUIRED.'),
       }),
-      execute: async ({ zipCode }) => getTravelTimeFromZip(zipCode),
+      execute: async ({ zipCode, streetAddress }) =>
+        getTravelTimeFromZip(zipCode, streetAddress),
     }),
 
     submit_booking_request: tool({

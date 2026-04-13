@@ -25,8 +25,9 @@ function deriveQuoteContext(messages) {
   for (const m of messages || []) {
     if (!Array.isArray(m.parts)) continue;
     for (const p of m.parts) {
-      if (p.type === "tool-get_travel_time_from_zip" && p.output?.zipCode) {
-        ctx.zip = p.output.zipCode;
+      if (p.type === "tool-get_travel_time_from_zip") {
+        if (p.output?.zipCode) ctx.zip = p.output.zipCode;
+        if (p.input?.streetAddress) ctx.address = p.input.streetAddress;
       }
       if (p.type === "tool-calculate_estimate") {
         const inp = p.input || {};
