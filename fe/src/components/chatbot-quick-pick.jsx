@@ -23,9 +23,10 @@ const PICKERS = {
     ],
   },
   zip: { type: "zip" },
+  contact: { type: "contact" },
 };
 
-const MARKER_RE = /\[PICK:(service|duration|zip)\]/;
+const MARKER_RE = /\[PICK:(service|duration|zip|contact)\]/;
 
 // Strip the marker from text for display, and return the marker kind (if any).
 export function extractPicker(text) {
@@ -37,10 +38,70 @@ export function extractPicker(text) {
   };
 }
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const PHONE_RE = /^[\d\s()+\-.]{7,25}$/;
+
+function ContactForm({ onPick, disabled }) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
+  const valid =
+    name.trim().length >= 2 && PHONE_RE.test(phone) && EMAIL_RE.test(email);
+
+  const submit = () => {
+    if (!valid) return;
+    onPick(
+      `Name: ${name.trim()} | Phone: ${phone.trim()} | Email: ${email.trim()}`
+    );
+  };
+
+  return (
+    <div className="flex flex-col gap-2 mt-2 w-full max-w-xs">
+      <input
+        type="text"
+        placeholder="Full name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        disabled={disabled}
+        className="text-sm font-archivo px-3 py-1.5 rounded-md bg-white border border-gray-300 outline-none focus:ring-2 focus:ring-[#CE598C]/30 disabled:opacity-50"
+      />
+      <input
+        type="tel"
+        placeholder="Phone number"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+        disabled={disabled}
+        className="text-sm font-archivo px-3 py-1.5 rounded-md bg-white border border-gray-300 outline-none focus:ring-2 focus:ring-[#CE598C]/30 disabled:opacity-50"
+      />
+      <input
+        type="email"
+        placeholder="Email address"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        disabled={disabled}
+        className="text-sm font-archivo px-3 py-1.5 rounded-md bg-white border border-gray-300 outline-none focus:ring-2 focus:ring-[#CE598C]/30 disabled:opacity-50"
+      />
+      <button
+        onClick={submit}
+        disabled={disabled || !valid}
+        className="px-3 py-1.5 rounded-full text-xs font-archivo font-semibold text-white cursor-pointer disabled:opacity-40"
+        style={{ backgroundColor: "var(--secound-heading)" }}
+      >
+        Send for confirmation
+      </button>
+    </div>
+  );
+}
+
 export function ChatbotQuickPick({ kind, onPick, disabled }) {
   const [zip, setZip] = useState("");
   const config = PICKERS[kind];
   if (!config) return null;
+
+  if (config.type === "contact") {
+    return <ContactForm onPick={onPick} disabled={disabled} />;
+  }
 
   if (config.type === "zip") {
     const submit = () => {

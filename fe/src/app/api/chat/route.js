@@ -6,7 +6,7 @@
 import { anthropic } from '@ai-sdk/anthropic';
 import { streamText, convertToModelMessages, stepCountIs } from 'ai';
 import { SYSTEM_PROMPT } from '@/lib/chatbot/knowledge-base';
-import { chatTools } from '@/lib/chatbot/tools';
+import { buildChatTools } from '@/lib/chatbot/tools';
 import { checkChatRateLimit } from '@/lib/chatbot/rate-limiter';
 import { getOrCreateSessionId } from '@/lib/chatbot/session-cookie';
 import {
@@ -88,7 +88,7 @@ export async function POST(req) {
       model: anthropic('claude-sonnet-4-6'),
       system: SYSTEM_PROMPT,
       messages: await convertToModelMessages(trimmed),
-      tools: chatTools,
+      tools: buildChatTools({ sessionId }),
       stopWhen: stepCountIs(5),
       maxOutputTokens: 600,
       temperature: 0.3,

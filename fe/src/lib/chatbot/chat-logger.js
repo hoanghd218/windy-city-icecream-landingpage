@@ -77,6 +77,13 @@ export function extractMetadataFromToolResults(toolCalls, toolResults) {
       if (args.hours) metadata.hours = args.hours;
       if (args.quantity) metadata.quantity = args.quantity;
     }
+    if (tc.toolName === 'submit_booking_request' && res.ok && res.referenceId) {
+      metadata.bookingRef = res.referenceId;
+      const args = tc.args || tc.input || {};
+      if (args.fullName) metadata.customerName = args.fullName;
+      if (args.email) metadata.customerEmail = args.email;
+      if (args.phone) metadata.customerPhone = args.phone;
+    }
   }
   return metadata;
 }
