@@ -3,14 +3,42 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Chatbot from "../../components/Chatbot";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, Suspense } from "react";
 import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Conatct() {
+export default function Contact() {
+  return (
+    <Suspense fallback={null}>
+      <ContactPageInner />
+    </Suspense>
+  );
+}
+
+function ContactPageInner() {
+  const searchParams = useSearchParams();
+  const prefill = {
+    firstName: searchParams.get("firstName") || "",
+    lastName: searchParams.get("lastName") || "",
+    email: searchParams.get("email") || "",
+    phone: searchParams.get("phone") || "",
+    zip: searchParams.get("zip") || "",
+    people: searchParams.get("people") || "",
+    interest: searchParams.get("interest") || "",
+    hours: searchParams.get("hours") || "",
+    total: searchParams.get("total") || "",
+  };
+  // Pre-built notes so the operator sees the chatbot context
+  const noteFromBot = [
+    prefill.hours && `Event duration: ${prefill.hours} hour(s)`,
+    prefill.total && `Estimated total from chatbot: $${prefill.total}`,
+  ]
+    .filter(Boolean)
+    .join("\n");
   const images = [
     "/image1.png",
     "/image2.png",
@@ -210,8 +238,8 @@ export default function Conatct() {
                     Name <span className="req">(Required)</span>
                   </label>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input className="input" placeholder="First name" />
-                    <input className="input" placeholder="Last name" />
+                    <input className="input" placeholder="First name" defaultValue={prefill.firstName} />
+                    <input className="input" placeholder="Last name" defaultValue={prefill.lastName} />
                   </div>
                 </div>
 
@@ -220,13 +248,13 @@ export default function Conatct() {
                     <label className="label">
                       Email <span className="req">(Required)</span>
                     </label>
-                    <input className="input" />
+                    <input className="input" type="email" defaultValue={prefill.email} />
                   </div>
                   <div>
                     <label className="label">
                       Phone <span className="req">(Required)</span>
                     </label>
-                    <input className="input" />
+                    <input className="input" type="tel" defaultValue={prefill.phone} />
                   </div>
                 </div>
 
@@ -234,7 +262,7 @@ export default function Conatct() {
                   <label className="label">Address of event</label>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <input className="input md:col-span-2" />
-                    <input className="input" placeholder="zip code" />
+                    <input className="input" placeholder="zip code" defaultValue={prefill.zip} />
                   </div>
                 </div>
 
@@ -243,7 +271,7 @@ export default function Conatct() {
                     <label className="label">
                       Number Of people <span className="req">(Required)</span>
                     </label>
-                    <input className="input" />
+                    <input className="input" type="number" defaultValue={prefill.people} />
                   </div>
                   <div>
                     <label className="label">
@@ -267,15 +295,22 @@ export default function Conatct() {
                     </label>
                     <div className="flex gap-6 mt-2 flex-wrap">
                       {["An ice cream truck", "An ice cream cart", "Both"].map(
-                        (item) => (
-                          <label
-                            key={item}
-                            className="flex items-center gap-2 text-sm text-[#55555599]"
-                          >
-                            <input type="checkbox" className="checkbox" />
-                            {item}
-                          </label>
-                        ),
+                        (item) => {
+                          const interestMap = {
+                            truck: "An ice cream truck",
+                            pushcart: "An ice cream cart",
+                          };
+                          const checked = interestMap[prefill.interest] === item;
+                          return (
+                            <label
+                              key={item}
+                              className="flex items-center gap-2 text-sm text-[#55555599]"
+                            >
+                              <input type="checkbox" className="checkbox" defaultChecked={checked} />
+                              {item}
+                            </label>
+                          );
+                        },
                       )}
                     </div>
                   </div>
@@ -315,6 +350,7 @@ export default function Conatct() {
                     className="textarea"
                     rows={4}
                     placeholder="Message"
+                    defaultValue={noteFromBot}
                   ></textarea>
                 </div>
 

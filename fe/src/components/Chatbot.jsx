@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useChat } from "@ai-sdk/react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -17,8 +17,55 @@ const QUICK_REPLIES = [
 const GREETING =
   "Hey there! 🍦 I'm Scoopy. Ask about our services, pricing, or get a quick estimate for your event!";
 
-// Markdown renderer with chat-tuned styling.
-const MARKDOWN_COMPONENTS = {
+// Walk through chat messages and pull out everything we know about the user
+// from tool inputs/outputs (zip, service type, qty, hours, contact info).
+// AI SDK v6 stores tool parts as { type: "tool-<toolName>", input, output }.
+function deriveQuoteContext(messages) {
+  const ctx = {};
+  for (const m of messages || []) {
+    if (!Array.isArray(m.parts)) continue;
+    for (const p of m.parts) {
+      if (p.type === "tool-get_travel_time_from_zip" && p.output?.zipCode) {
+        ctx.zip = p.output.zipCode;
+      }
+      if (p.type === "tool-calculate_estimate") {
+        const inp = p.input || {};
+        if (inp.serviceType) ctx.interest = inp.serviceType;
+        if (inp.quantity) ctx.people = String(inp.quantity);
+        if (inp.hours) ctx.hours = String(inp.hours);
+        if (p.output?.total) ctx.total = String(p.output.total);
+      }
+      if (p.type === "tool-submit_booking_request") {
+        const inp = p.input || {};
+        if (inp.fullName) {
+          const parts = inp.fullName.trim().split(/\s+/);
+          ctx.firstName = parts[0];
+          ctx.lastName = parts.slice(1).join(" ");
+        }
+        if (inp.email) ctx.email = inp.email;
+        if (inp.phone) ctx.phone = inp.phone;
+      }
+    }
+  }
+  return ctx;
+}
+
+function buildContactHref(href, ctx) {
+  if (!href) return href;
+  // Only enrich internal /contact links when we have something to add
+  if (!/^\/contact($|\?)/.test(href)) return href;
+  if (!ctx || Object.keys(ctx).length === 0) return href;
+  const [path, existing] = href.split("?");
+  const params = new URLSearchParams(existing || "");
+  Object.entries(ctx).forEach(([k, v]) => {
+    if (v && !params.has(k)) params.set(k, String(v));
+  });
+  return `${path}?${params.toString()}`;
+}
+
+// Markdown renderer factory. Closes over quoteContext to enrich /contact links.
+function buildMarkdownComponents(quoteContext) {
+  return {
   p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
   ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
   ol: ({ children }) => <ol className="list-decimal pl-4 mb-2 space-y-1">{children}</ol>,
@@ -40,9 +87,10 @@ const MARKDOWN_COMPONENTS = {
   td: ({ children }) => <td className="border-b border-current/10 px-2 py-1">{children}</td>,
   a: ({ href, children }) => {
     const isExternal = /^https?:/.test(href || "");
+    const finalHref = buildContactHref(href, quoteContext);
     return (
       <a
-        href={href}
+        href={finalHref}
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
         className="underline font-semibold"
@@ -56,7 +104,8 @@ const MARKDOWN_COMPONENTS = {
   blockquote: ({ children }) => (
     <blockquote className="border-l-2 border-current/30 pl-2 italic my-1">{children}</blockquote>
   ),
-};
+  };
+}
 
 // Extract displayable text from UIMessage parts (AI SDK v6 format).
 function messageText(message) {
@@ -85,6 +134,13 @@ export default function Chatbot() {
   });
 
   const isLoading = status === "submitted" || status === "streaming";
+
+  // Track everything the user has shared so /contact links can be prefilled
+  const quoteContext = useMemo(() => deriveQuoteContext(messages), [messages]);
+  const markdownComponents = useMemo(
+    () => buildMarkdownComponents(quoteContext),
+    [quoteContext]
+  );
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -286,7 +342,7 @@ export default function Chatbot() {
                     {isUser ? (
                       cleanText
                     ) : (
-                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={MARKDOWN_COMPONENTS}>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
                         {cleanText}
                       </ReactMarkdown>
                     )}
