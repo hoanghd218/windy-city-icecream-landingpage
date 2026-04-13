@@ -1,0 +1,100 @@
+Windy City Ice Cream – Chat Box Information
+Purpose
+The chat box on the Windy City Ice Cream website will provide automated responses to
+common customer questions regarding services, pricing, and product details.
+1. Services Provided
+The chat box should inform customers that Windy City Ice Cream offers:
+• Ice Cream Truck service for events (schools, corporate events, private parties, etc.)
+• Ice Cream Push Cart service for 24 service, outdoor venues, etc
+• Seasonal operation: May through mid-September
+2. Ice Cream Details
+Each serving is pre-packaged novelty ice cream (such as popsicles, sandwiches, cones, bars,
+and character-shaped treats).
+Price per piece: $4.00
+3. Service Pricing Structure
+Pricing is based on:
+1. Truck Service Time
+2. Travel Distance
+3. Ice Cream Quantity
+4. Applicable Sales Tax
+Truck Service Fee
+$80 per hour (minimum one hour)
+Distance / Travel Fee
+Travel Time Fee
+0–30 minutes $0
+31–45 minutes $25
+46–60 minutes $50
+60–75 minutes $100
+
+4. Minimum Ice Cream Requirement
+Minimum of 50 pieces per 30 minutes of serving time.
+Example:
+- 30-minute event → 50 pieces minimum
+- 1-hour event → 100 pieces minimum
+The final bill will reflect the greater of:
+- The minimum required quantity, or
+- The actual number of ice creams distributed.
+5. Sales Tax
+Sales tax applies to the ice cream portion of the total cost. The tax rate varies by event
+location and will be added to the final bill based on the applicable local tax rate.
+6. Example Price Calculations
+Example 1:
+Event duration: 1 hour
+Travel time: 25 minutes
+100 pieces distributed
+Local sales tax: 10%
+Cost breakdown:
+- Truck: $80
+- Distance Fee: $0
+- Ice Cream: 100 × $4 = $400
+- Tax (10% on $400): $40
+Total: $520
+
+Example 2:
+Event duration: 1 hour
+Travel time: 50 minutes
+120 pieces distributed
+Local sales tax: 8%
+Cost breakdown:
+- Truck: $80
+- Distance Fee: $50
+- Ice Cream: 120 × $4 = $480
+- Tax (8% on $480): $38.40
+Total: $648.40
+
+7. Chat Box Capabilities
+The chat box should be able to:
+- Answer common questions such as:
+• What services do you provide?
+• How much does it cost?
+• What types of ice cream do you have?
+• How is pricing calculated?
+- Calculate a basic estimated total based on:
+• Event duration (in hours)
+• Approximate travel time from Chicago Ridge, IL
+• Number of ice creams desired
+• Local tax rate (if provided or selected)
+Formula for total estimate:
+(Truck Hourly Fee × Hours) + Distance Fee + (Number of Ice Creams × $4) + (Applicable Tax
+on Ice Cream)
+8. Optional Chat Features (if developer supports)
+• Dropdown or quick-response buttons for:
+- Selecting service type (Truck / Push Cart)
+- Choosing event duration (30 min, 1 hr, 1.5 hr, etc.)
+- Enteringr ZIP code (use this code to determine travel time from warehouse location)
+• Automatic cost estimate calculation
+• Link to the booking form for quote confirmation
+Contact Information
+Windy City Ice Cream
+10525 S Ridgeland Ave, Alsio, Il 60803
+www.windycityicecream.com
+Email: wudyicityicecream@gmail.com
+Phone:708-
+
+FAQ’S:
+Need a limited menu or allergy-friendly options like nut-free? We tailor our selection to fit
+your company’s needs.
+Do you offer any school discounts? Yes we have a special pricing for schools and off a
+limited menu for school events over 100 servings.
+Do you serve multiple shifts? Yes, we can do multiple shifts or we can also do a pushcart
+when shifts need to be covered for 24 hours.

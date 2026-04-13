@@ -1,0 +1,62 @@
+// Resolves a US ZIP code to one-way driving time in minutes from the warehouse,
+// using Google Distance Matrix API. Caches results in Vercel KV (30 days).
+
+import { getRedis } from './kv-client';
+
+const CACHE_TTL_SECONDS = 60 * 60 * 24 * 30; // 30 days
+const CACHE_PREFIX = 'travel:';
+
+export async function getTravelTimeFromZip(zipCode) {
+  const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+  const origin = process.env.WAREHOUSE_ADDRESS;
+
+  if (!apiKey || !origin) {
+    return { error: 'Travel time service not configured', zipCode };
+  }
+
+  // Cache check
+  const redis = getRedis();
+  const cacheKey = `${CACHE_PREFIX}${zipCode}`;
+  if (redis) {
+    const cached = await redis.get(cacheKey);
+    if (cached) return cached;
+  }
+
+  // Call Google Distance Matrix
+  const url =
+    `https://maps.googleapis.com/maps/api/distancematrix/json` +
+    `?origins=${encodeURIComponent(origin)}` +
+    `&destinations=${encodeURIComponent(zipCode + ', USA')}` +
+    `&units=imperial` +
+    `&key=${apiKey}`;
+
+  let data;
+  try {
+    const res = await fetch(url);
+    data = await res.json();
+  } catch (err) {
+    return { error: 'Failed to reach travel time service', zipCode };
+  }
+
+  const elem = data?.rows?.[0]?.elements?.[0];
+  if (data.status !== 'OK' || elem?.status !== 'OK') {
+    return {
+      error: `Could not determine travel time for ZIP ${zipCode}`,
+      zipCode,
+      googleStatus: elem?.status || data?.status,
+    };
+  }
+
+  const result = {
+    zipCode,
+    travelTimeMinutes: Math.round(elem.duration.value / 60),
+    distanceMiles: Math.round(elem.distance.value / 1609),
+    destinationAddress: data.destination_addresses?.[0],
+  };
+
+  if (redis) {
+    await redis.set(cacheKey, result, { ex: CACHE_TTL_SECONDS });
+  }
+
+  return result;
+}

@@ -25,7 +25,9 @@ coverage
 *.7z
 *.rar
 /node_modules/*
+/fe/node_modules/*
 /.next/*
+/fe/.next/*
 /.agents/*
 /.claude/*
 /.vscode/*
@@ -36,5 +38,9 @@ coverage
 /.env.development
 /.env.test
 /.env.production
+/fe/.env.local
+/fe/.env.development
+/fe/.env.test
+/fe/.env.production
 config.bat
 node_modules
