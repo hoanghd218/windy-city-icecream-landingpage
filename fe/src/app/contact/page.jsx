@@ -235,50 +235,6 @@ function ContactPageInner() {
             <div className="bg-white w-full max-w-5xl rounded-xl shadow-md p-6 md:p-10">
               <ContactForm prefill={prefill} noteFromBot={noteFromBot} />
             </div>
-
-            <style jsx>{`
-              .label {
-                font-size: 16px;
-                font-weight: 400;
-                color: #000000;
-                font-family: "Archivo", sans-serif;
-              }
-              .req {
-                color: #d50004;
-                font-size: 14px;
-              }
-              .input {
-                width: 100%;
-                margin-top: 6px;
-                border: 1px solid #d1d5db;
-                border-radius: 6px;
-                padding: 10px 12px;
-                font-size: 14px;
-                outline: none;
-              }
-              .input:focus {
-                border-color: #38bdf8;
-                box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
-              }
-              .checkbox {
-                width: 16px;
-                height: 16px;
-                accent-color: #0ea5e9;
-              }
-              .textarea {
-                width: 100%;
-                margin-top: 6px;
-                border: 1px solid #d1d5db;
-                border-radius: 6px;
-                padding: 10px 12px;
-                font-size: 14px;
-                outline: none;
-              }
-              .textarea:focus {
-                border-color: #38bdf8;
-                box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
-              }
-            `}</style>
           </div>
         </div>
       </section>
@@ -551,6 +507,50 @@ function ContactForm({ prefill, noteFromBot }) {
       >
         {status.state === "submitting" ? "Sending…" : "Send us your inquiry"}
       </button>
+
+      <style jsx>{`
+        .label {
+          display: block;
+          font-size: 16px;
+          font-weight: 500;
+          color: #000000;
+          font-family: "Archivo", sans-serif;
+          margin-bottom: 6px;
+        }
+        .req {
+          color: #d50004;
+          font-size: 14px;
+          font-weight: 400;
+        }
+        .input,
+        .textarea {
+          display: block;
+          width: 100%;
+          margin-top: 6px;
+          border: 1px solid #d1d5db;
+          border-radius: 6px;
+          padding: 10px 12px;
+          font-size: 14px;
+          outline: none;
+          background: #fff;
+          color: #111;
+          font-family: "Archivo", sans-serif;
+        }
+        .input:focus,
+        .textarea:focus {
+          border-color: #38bdf8;
+          box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+        }
+        .textarea {
+          resize: vertical;
+          min-height: 110px;
+        }
+        .checkbox {
+          width: 16px;
+          height: 16px;
+          accent-color: #0ea5e9;
+        }
+      `}</style>
     </form>
   );
 }
