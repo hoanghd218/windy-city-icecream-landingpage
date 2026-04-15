@@ -41,15 +41,15 @@ function fmtTime(iso) {
   }
 }
 
-export default function AdminChatsPage() {
+export default function AdminContactsPage() {
   return (
     <Suspense fallback={<div className="p-6 text-sm text-gray-500">Loading…</div>}>
-      <LeadsPageInner />
+      <ContactsPageInner />
     </Suspense>
   );
 }
 
-function LeadsPageInner() {
+function ContactsPageInner() {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -61,11 +61,10 @@ function LeadsPageInner() {
     ? parseInt(params.get("pageSize"), 10)
     : 20;
 
-  const [data, setData] = useState({ leads: [], total: 0, totalPages: 1 });
+  const [data, setData] = useState({ submissions: [], total: 0, totalPages: 1 });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
-  const [expandedMsgs, setExpandedMsgs] = useState({});
 
   const setQuery = useCallback(
     (updates) => {
@@ -85,9 +84,7 @@ function LeadsPageInner() {
   const load = useCallback(() => {
     setLoading(true);
     setError(null);
-    fetch(
-      `/api/admin/leads?from=${from}&to=${to}&page=${page}&pageSize=${pageSize}`
-    )
+    fetch(`/api/admin/contacts?from=${from}&to=${to}&page=${page}&pageSize=${pageSize}`)
       .then((r) => r.json().then((d) => ({ ok: r.ok, d })))
       .then(({ ok, d }) => {
         if (!ok) throw new Error(d.error || "Load failed");
@@ -102,31 +99,15 @@ function LeadsPageInner() {
     setExpandedId(null);
   }, [load]);
 
-  const toggleExpand = (sessionId) => {
-    if (expandedId === sessionId) {
-      setExpandedId(null);
-      return;
-    }
-    setExpandedId(sessionId);
-    if (!expandedMsgs[sessionId]) {
-      fetch(`/api/admin/sessions/${sessionId}`)
-        .then((r) => r.json())
-        .then((d) =>
-          setExpandedMsgs((prev) => ({ ...prev, [sessionId]: d.messages || [] }))
-        );
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
       <div className="max-w-7xl mx-auto">
         <AdminNav />
+
         <header className="flex items-center justify-between mb-4 gap-3 flex-wrap">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Leads</h1>
-            <p className="text-sm text-gray-500">
-              Chatbot conversations with optional booking info
-            </p>
+            <h1 className="text-2xl font-bold text-gray-900">Contact submissions</h1>
+            <p className="text-sm text-gray-500">People who filled out the contact form</p>
           </div>
           <button
             onClick={load}
@@ -156,18 +137,15 @@ function LeadsPageInner() {
         {error && (
           <div className="mb-3 p-3 bg-red-50 border border-red-200 text-sm text-red-700 rounded-md">
             {error}{" "}
-            <button onClick={load} className="underline ml-2">
-              Retry
-            </button>
+            <button onClick={load} className="underline ml-2">Retry</button>
           </div>
         )}
 
-        <LeadsTable
+        <SubmissionsTable
           loading={loading}
-          leads={data.leads}
+          submissions={data.submissions}
           expandedId={expandedId}
-          expandedMsgs={expandedMsgs}
-          onToggle={toggleExpand}
+          onToggle={(id) => setExpandedId(expandedId === id ? null : id)}
         />
 
         <Pagination
@@ -242,9 +220,7 @@ function FilterBar({ preset, from, to, pageSize, onPreset, onCustom, onPageSize 
           className="px-2 py-1.5 border border-gray-300 rounded-md"
         >
           {PAGE_SIZES.map((n) => (
-            <option key={n} value={n}>
-              {n}
-            </option>
+            <option key={n} value={n}>{n}</option>
           ))}
         </select>
       </div>
@@ -252,18 +228,18 @@ function FilterBar({ preset, from, to, pageSize, onPreset, onCustom, onPageSize 
   );
 }
 
-function LeadsTable({ loading, leads, expandedId, expandedMsgs, onToggle }) {
+function SubmissionsTable({ loading, submissions, expandedId, onToggle }) {
   if (loading) {
     return (
       <div className="bg-white rounded-xl shadow p-6 text-sm text-gray-500 text-center">
-        Loading leads…
+        Loading submissions…
       </div>
     );
   }
-  if (!leads.length) {
+  if (!submissions.length) {
     return (
       <div className="bg-white rounded-xl shadow p-6 text-sm text-gray-400 text-center">
-        No leads in this date range.
+        No submissions in this date range.
       </div>
     );
   }
@@ -273,24 +249,23 @@ function LeadsTable({ loading, leads, expandedId, expandedMsgs, onToggle }) {
         <table className="min-w-full text-sm">
           <thead className="bg-gray-50 text-gray-600 text-xs uppercase">
             <tr>
-              <th className="px-3 py-2 text-left">Last activity</th>
+              <th className="px-3 py-2 text-left">Submitted</th>
               <th className="px-3 py-2 text-left">Name</th>
-              <th className="px-3 py-2 text-left">Phone</th>
               <th className="px-3 py-2 text-left">Email</th>
+              <th className="px-3 py-2 text-left">Phone</th>
+              <th className="px-3 py-2 text-left">Event date</th>
+              <th className="px-3 py-2 text-left">Event type</th>
               <th className="px-3 py-2 text-left">ZIP</th>
-              <th className="px-3 py-2 text-right">Estimate</th>
-              <th className="px-3 py-2 text-left">Booking Ref</th>
-              <th className="px-3 py-2 text-right">#Msg</th>
+              <th className="px-3 py-2 text-right">People</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {leads.map((lead) => (
-              <LeadRow
-                key={lead.sessionId}
-                lead={lead}
-                expanded={expandedId === lead.sessionId}
-                messages={expandedMsgs[lead.sessionId]}
-                onToggle={() => onToggle(lead.sessionId)}
+            {submissions.map((s) => (
+              <SubmissionRow
+                key={s.id}
+                s={s}
+                expanded={expandedId === s.id}
+                onToggle={() => onToggle(s.id)}
               />
             ))}
           </tbody>
@@ -300,47 +275,40 @@ function LeadsTable({ loading, leads, expandedId, expandedMsgs, onToggle }) {
   );
 }
 
-function LeadRow({ lead, expanded, messages, onToggle }) {
-  const c = lead.customer || {};
-  const m = lead.metadata || {};
+function SubmissionRow({ s, expanded, onToggle }) {
+  const fullName = [s.firstName, s.lastName].filter(Boolean).join(" ");
   return (
     <>
       <tr
         onClick={onToggle}
-        className={`cursor-pointer hover:bg-pink-50 ${
-          expanded ? "bg-pink-50" : ""
-        }`}
+        className={`cursor-pointer hover:bg-pink-50 ${expanded ? "bg-pink-50" : ""}`}
       >
-        <td className="px-3 py-2 whitespace-nowrap">{fmtTime(lead.lastTs)}</td>
-        <td className="px-3 py-2">{c.name || <Muted />}</td>
-        <td className="px-3 py-2">{c.phone || <Muted />}</td>
-        <td className="px-3 py-2">{c.email || <Muted />}</td>
-        <td className="px-3 py-2">{m.zipCode || <Muted />}</td>
-        <td className="px-3 py-2 text-right">
-          {typeof m.estimateTotal === "number" ? `$${m.estimateTotal}` : <Muted />}
-        </td>
-        <td className="px-3 py-2 font-mono text-xs">
-          {c.referenceId || <Muted />}
-        </td>
-        <td className="px-3 py-2 text-right">{lead.messageCount}</td>
+        <td className="px-3 py-2 whitespace-nowrap">{fmtTime(s.ts)}</td>
+        <td className="px-3 py-2">{fullName || <Muted />}</td>
+        <td className="px-3 py-2">{s.email || <Muted />}</td>
+        <td className="px-3 py-2">{s.phone || <Muted />}</td>
+        <td className="px-3 py-2">{s.date || <Muted />}</td>
+        <td className="px-3 py-2">{s.eventType || <Muted />}</td>
+        <td className="px-3 py-2">{s.zip || <Muted />}</td>
+        <td className="px-3 py-2 text-right">{s.people || <Muted />}</td>
       </tr>
       {expanded && (
         <tr>
           <td colSpan={8} className="bg-gray-50 px-4 py-3">
-            <div className="text-xs text-gray-500 mb-2 font-mono break-all">
-              Session: {lead.sessionId}
-            </div>
-            {!messages ? (
-              <p className="text-sm text-gray-500">Loading messages…</p>
-            ) : messages.length === 0 ? (
-              <p className="text-sm text-gray-400">No messages.</p>
-            ) : (
-              <div className="space-y-2 max-h-[60vh] overflow-y-auto">
-                {messages.map((msg, i) => (
-                  <MessageCard key={`${msg.ts}-${i}`} message={msg} />
-                ))}
-              </div>
-            )}
+            <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm">
+              <Field label="Street">{s.street}</Field>
+              <Field label="ZIP">{s.zip}</Field>
+              <Field label="Time of event">{s.time}</Field>
+              <Field label="Multiple shifts">{s.multipleShifts}</Field>
+              <Field label="Interested in">
+                {Array.isArray(s.interests) && s.interests.length
+                  ? s.interests.join(", ")
+                  : null}
+              </Field>
+              <Field label="Special notes" full>
+                {s.specialNotes}
+              </Field>
+            </dl>
           </td>
         </tr>
       )}
@@ -348,64 +316,26 @@ function LeadRow({ lead, expanded, messages, onToggle }) {
   );
 }
 
-function Muted() {
-  return <span className="text-gray-300">—</span>;
-}
-
-function MessageCard({ message }) {
-  const isUser = message.role === "user";
-  const isBooking = message.role === "booking-request";
-  const hasTools =
-    Array.isArray(message.toolCalls) && message.toolCalls.length > 0;
-  const bg = isBooking
-    ? "bg-amber-50 border-amber-200"
-    : isUser
-    ? "bg-pink-50 border-pink-100"
-    : "bg-sky-50 border-sky-100";
-  const tagColor = isBooking
-    ? "text-amber-700"
-    : isUser
-    ? "text-pink-700"
-    : "text-sky-700";
+function Field({ label, children, full }) {
   return (
-    <div className={`border rounded-lg p-2.5 ${bg}`}>
-      <div className="flex items-center gap-2 mb-1">
-        <span className={`text-xs font-semibold uppercase ${tagColor}`}>
-          {message.role}
-        </span>
-        <span className="text-xs text-gray-500">{fmtTime(message.ts)}</span>
-      </div>
-      <div className="text-sm text-gray-800 whitespace-pre-wrap break-words">
-        {message.content}
-      </div>
-      {message.booking && (
-        <div className="mt-1 text-xs grid grid-cols-2 gap-x-3">
-          <div><b>Ref:</b> {message.booking.referenceId}</div>
-          <div><b>Name:</b> {message.booking.fullName}</div>
-          <div><b>Phone:</b> {message.booking.phone}</div>
-          <div><b>Email:</b> {message.booking.email}</div>
-        </div>
-      )}
-      {hasTools && (
-        <details className="mt-2 text-xs">
-          <summary className="cursor-pointer text-gray-600 hover:text-gray-900">
-            🛠 {message.toolCalls.length} tool call
-            {message.toolCalls.length > 1 ? "s" : ""}
-          </summary>
-          <pre className="mt-1 p-2 bg-gray-900 text-gray-100 rounded overflow-x-auto text-[11px] leading-snug">
-            {JSON.stringify(message.toolCalls, null, 2)}
-          </pre>
-        </details>
-      )}
+    <div className={full ? "md:col-span-2" : ""}>
+      <dt className="text-xs uppercase text-gray-500">{label}</dt>
+      <dd className="text-gray-800 whitespace-pre-wrap break-words">
+        {children || <Muted />}
+      </dd>
     </div>
   );
+}
+
+function Muted() {
+  return <span className="text-gray-300">—</span>;
 }
 
 function Pagination({ page, totalPages, total, onPage }) {
   if (total === 0) return null;
   return (
     <div className="mt-4 flex items-center justify-between text-sm text-gray-600">
-      <div>{total} lead{total === 1 ? "" : "s"} total</div>
+      <div>{total} submission{total === 1 ? "" : "s"} total</div>
       <div className="flex items-center gap-2">
         <button
           onClick={() => onPage(page - 1)}
@@ -414,9 +344,7 @@ function Pagination({ page, totalPages, total, onPage }) {
         >
           ← Prev
         </button>
-        <span>
-          Page {page} / {totalPages}
-        </span>
+        <span>Page {page} / {totalPages}</span>
         <button
           onClick={() => onPage(page + 1)}
           disabled={page >= totalPages}

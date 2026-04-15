@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Chatbot from "../../components/Chatbot";
 import Image from "next/image";
-import { useRef, Suspense } from "react";
+import { useRef, Suspense, useState } from "react";
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import gsap from "gsap";
@@ -233,139 +233,7 @@ function ContactPageInner() {
             />
 
             <div className="bg-white w-full max-w-5xl rounded-xl shadow-md p-6 md:p-10">
-              <form className="space-y-5">
-                <div>
-                  <label className="label">
-                    Name <span className="req">(Required)</span>
-                  </label>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input className="input" placeholder="First name" defaultValue={prefill.firstName} />
-                    <input className="input" placeholder="Last name" defaultValue={prefill.lastName} />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="label">
-                      Email <span className="req">(Required)</span>
-                    </label>
-                    <input className="input" type="email" defaultValue={prefill.email} />
-                  </div>
-                  <div>
-                    <label className="label">Phone</label>
-                    <input className="input" type="tel" defaultValue={prefill.phone} />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="label">
-                    Address of event <span className="req">(Required)</span>
-                  </label>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <input className="input md:col-span-2" placeholder="Street address" defaultValue={prefill.address} required />
-                    <input className="input" placeholder="zip code" defaultValue={prefill.zip} required />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="label">
-                      Number Of people <span className="req">(Required)</span>
-                    </label>
-                    <input className="input" type="number" defaultValue={prefill.people} />
-                  </div>
-                  <div>
-                    <label className="label">
-                      Date <span className="req">(Required)</span>
-                    </label>
-                    <input className="input" placeholder="MM/DD/YYYY" />
-                  </div>
-                  <div>
-                    <label className="label">
-                      Time of event (or TBD){" "}
-                      <span className="req">(Required)</span>
-                    </label>
-                    <input className="input" placeholder="e.g. 3:00 PM or TBD" />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="label">
-                      I&apos;m Interested in <span className="req">(Required)</span>
-                    </label>
-                    <div className="flex gap-6 mt-2 flex-wrap">
-                      {["An ice cream truck", "An ice cream cart", "Both"].map(
-                        (item) => {
-                          const interestMap = {
-                            truck: "An ice cream truck",
-                            pushcart: "An ice cream cart",
-                          };
-                          const checked = interestMap[prefill.interest] === item;
-                          return (
-                            <label
-                              key={item}
-                              className="flex items-center gap-2 text-sm text-[#55555599]"
-                            >
-                              <input type="checkbox" className="checkbox" defaultChecked={checked} />
-                              {item}
-                            </label>
-                          );
-                        },
-                      )}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="label">
-                      What&apos;s the nature of the event?{" "}
-                      <span className="req">(Required)</span>
-                    </label>
-                    <select className="input mt-2" defaultValue="">
-                      <option value="" disabled>Select event type</option>
-                      <option>Employee Appreciation</option>
-                      <option>Corporate Picnic</option>
-                      <option>Birthday</option>
-                      <option>Graduation</option>
-                      <option>Block Party</option>
-                      <option>Marketing</option>
-                      <option>Customer Appreciation</option>
-                      <option>Tenant Appreciation</option>
-                      <option>Other Private Event</option>
-                      <option>Other Corporate Event</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="label">Multiple shifts to be Covered?</label>
-                  <div className="flex gap-8 mt-2">
-                    {["Yes", "No"].map((item) => (
-                      <label
-                        key={item}
-                        className="flex items-center gap-2 text-sm"
-                      >
-                        <input type="checkbox" className="checkbox" />
-                        {item}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="label">Special Notes,</label>
-                  <textarea
-                    className="textarea"
-                    rows={4}
-                    placeholder="Message"
-                    defaultValue={noteFromBot}
-                  ></textarea>
-                </div>
-
-                <button className="w-full bg-[#0072B0] text-white py-3 rounded-md hover:bg-sky-800 transition">
-                  Send us your inquiry
-                </button>
-              </form>
+              <ContactForm prefill={prefill} noteFromBot={noteFromBot} />
             </div>
 
             <style jsx>{`
@@ -503,5 +371,186 @@ function ContactPageInner() {
       <Footer />
       <Chatbot />
     </>
+  );
+}
+
+function ContactForm({ prefill, noteFromBot }) {
+  const interestMap = {
+    truck: "An ice cream truck",
+    pushcart: "An ice cream cart",
+  };
+  const [status, setStatus] = useState({ state: "idle", message: "" });
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (status.state === "submitting") return;
+    const fd = new FormData(e.currentTarget);
+    const payload = {
+      firstName: fd.get("firstName"),
+      lastName: fd.get("lastName"),
+      email: fd.get("email"),
+      phone: fd.get("phone"),
+      street: fd.get("street"),
+      zip: fd.get("zip"),
+      people: fd.get("people"),
+      date: fd.get("date"),
+      time: fd.get("time"),
+      interests: fd.getAll("interests"),
+      eventType: fd.get("eventType"),
+      multipleShifts: fd.get("multipleShifts"),
+      specialNotes: fd.get("specialNotes"),
+    };
+    setStatus({ state: "submitting", message: "" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Submission failed");
+      setStatus({ state: "success", message: "Thanks! We'll be in touch shortly." });
+      e.currentTarget.reset();
+    } catch (err) {
+      setStatus({ state: "error", message: err.message });
+    }
+  }
+
+  return (
+    <form className="space-y-5" onSubmit={handleSubmit}>
+      <div>
+        <label className="label">
+          Name <span className="req">(Required)</span>
+        </label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input className="input" name="firstName" placeholder="First name" defaultValue={prefill.firstName} required />
+          <input className="input" name="lastName" placeholder="Last name" defaultValue={prefill.lastName} required />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="label">
+            Email <span className="req">(Required)</span>
+          </label>
+          <input className="input" name="email" type="email" defaultValue={prefill.email} required />
+        </div>
+        <div>
+          <label className="label">Phone</label>
+          <input className="input" name="phone" type="tel" defaultValue={prefill.phone} />
+        </div>
+      </div>
+
+      <div>
+        <label className="label">
+          Address of event <span className="req">(Required)</span>
+        </label>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <input className="input md:col-span-2" name="street" placeholder="Street address" defaultValue={prefill.address} required />
+          <input className="input" name="zip" placeholder="zip code" defaultValue={prefill.zip} required />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label className="label">
+            Number Of people <span className="req">(Required)</span>
+          </label>
+          <input className="input" name="people" type="number" defaultValue={prefill.people} required />
+        </div>
+        <div>
+          <label className="label">
+            Date <span className="req">(Required)</span>
+          </label>
+          <input className="input" name="date" placeholder="MM/DD/YYYY" required />
+        </div>
+        <div>
+          <label className="label">
+            Time of event (or TBD) <span className="req">(Required)</span>
+          </label>
+          <input className="input" name="time" placeholder="e.g. 3:00 PM or TBD" required />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="label">
+            I&apos;m Interested in <span className="req">(Required)</span>
+          </label>
+          <div className="flex gap-6 mt-2 flex-wrap">
+            {["An ice cream truck", "An ice cream cart", "Both"].map((item) => {
+              const checked = interestMap[prefill.interest] === item;
+              return (
+                <label key={item} className="flex items-center gap-2 text-sm text-[#55555599]">
+                  <input type="checkbox" className="checkbox" name="interests" value={item} defaultChecked={checked} />
+                  {item}
+                </label>
+              );
+            })}
+          </div>
+        </div>
+
+        <div>
+          <label className="label">
+            What&apos;s the nature of the event? <span className="req">(Required)</span>
+          </label>
+          <select className="input mt-2" name="eventType" defaultValue="" required>
+            <option value="" disabled>Select event type</option>
+            <option>Employee Appreciation</option>
+            <option>Corporate Picnic</option>
+            <option>Birthday</option>
+            <option>Graduation</option>
+            <option>Block Party</option>
+            <option>Marketing</option>
+            <option>Customer Appreciation</option>
+            <option>Tenant Appreciation</option>
+            <option>Other Private Event</option>
+            <option>Other Corporate Event</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label className="label">Multiple shifts to be Covered?</label>
+        <div className="flex gap-8 mt-2">
+          {["Yes", "No"].map((item) => (
+            <label key={item} className="flex items-center gap-2 text-sm">
+              <input type="radio" className="checkbox" name="multipleShifts" value={item} />
+              {item}
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <label className="label">Special Notes,</label>
+        <textarea
+          className="textarea"
+          name="specialNotes"
+          rows={4}
+          placeholder="Message"
+          defaultValue={noteFromBot}
+        ></textarea>
+      </div>
+
+      {status.state === "success" && (
+        <div className="p-3 bg-green-50 border border-green-200 text-sm text-green-800 rounded-md">
+          {status.message}
+        </div>
+      )}
+      {status.state === "error" && (
+        <div className="p-3 bg-red-50 border border-red-200 text-sm text-red-700 rounded-md">
+          {status.message}
+        </div>
+      )}
+
+      <button
+        type="submit"
+        disabled={status.state === "submitting"}
+        className="w-full bg-[#0072B0] text-white py-3 rounded-md hover:bg-sky-800 transition disabled:opacity-60"
+      >
+        {status.state === "submitting" ? "Sending…" : "Send us your inquiry"}
+      </button>
+    </form>
   );
 }
