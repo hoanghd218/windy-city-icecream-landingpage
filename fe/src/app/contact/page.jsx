@@ -340,7 +340,8 @@ function ContactForm({ prefill, noteFromBot }) {
   async function handleSubmit(e) {
     e.preventDefault();
     if (status.state === "submitting") return;
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const payload = {
       firstName: fd.get("firstName"),
       lastName: fd.get("lastName"),
@@ -365,11 +366,37 @@ function ContactForm({ prefill, noteFromBot }) {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || "Submission failed");
-      setStatus({ state: "success", message: "Thanks! We'll be in touch shortly." });
-      e.currentTarget.reset();
+      setStatus({
+        state: "success",
+        message: "Thank you! We received your inquiry and will call you soon.",
+      });
+      form.reset();
     } catch (err) {
       setStatus({ state: "error", message: err.message });
     }
+  }
+
+  if (status.state === "success") {
+    return (
+      <div className="text-center py-10">
+        <div className="mx-auto w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-3xl mb-4">
+          ✓
+        </div>
+        <h2 className="text-2xl md:text-3xl font-bold text-primary font-archivo mb-3">
+          Thank you!
+        </h2>
+        <p className="text-base text-gray-700 max-w-md mx-auto">
+          {status.message} We&apos;ll reach out to confirm details shortly.
+        </p>
+        <button
+          type="button"
+          onClick={() => setStatus({ state: "idle", message: "" })}
+          className="mt-6 px-5 py-2 rounded-md border border-gray-300 text-sm text-gray-700 hover:bg-gray-50"
+        >
+          Send another inquiry
+        </button>
+      </div>
+    );
   }
 
   return (
