@@ -252,18 +252,18 @@ function ContactPageInner() {
                     <input className="input" type="email" defaultValue={prefill.email} />
                   </div>
                   <div>
-                    <label className="label">
-                      Phone <span className="req">(Required)</span>
-                    </label>
+                    <label className="label">Phone</label>
                     <input className="input" type="tel" defaultValue={prefill.phone} />
                   </div>
                 </div>
 
                 <div>
-                  <label className="label">Address of event</label>
+                  <label className="label">
+                    Address of event <span className="req">(Required)</span>
+                  </label>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <input className="input md:col-span-2" placeholder="Street address" defaultValue={prefill.address} />
-                    <input className="input" placeholder="zip code" defaultValue={prefill.zip} />
+                    <input className="input md:col-span-2" placeholder="Street address" defaultValue={prefill.address} required />
+                    <input className="input" placeholder="zip code" defaultValue={prefill.zip} required />
                   </div>
                 </div>
 
@@ -321,17 +321,24 @@ function ContactPageInner() {
                       What&apos;s the nature of the event?{" "}
                       <span className="req">(Required)</span>
                     </label>
-                    <select className="input mt-2">
+                    <select className="input mt-2" defaultValue="">
+                      <option value="" disabled>Select event type</option>
+                      <option>Employee Appreciation</option>
+                      <option>Corporate Picnic</option>
                       <option>Birthday</option>
+                      <option>Graduation</option>
+                      <option>Block Party</option>
+                      <option>Marketing</option>
+                      <option>Customer Appreciation</option>
+                      <option>Tenant Appreciation</option>
+                      <option>Other Private Event</option>
+                      <option>Other Corporate Event</option>
                     </select>
                   </div>
                 </div>
 
                 <div>
-                  <label className="label">
-                    Multiple shifts to be Covered?{" "}
-                    <span className="req">(Required)</span>
-                  </label>
+                  <label className="label">Multiple shifts to be Covered?</label>
                   <div className="flex gap-8 mt-2">
                     {["Yes", "No"].map((item) => (
                       <label

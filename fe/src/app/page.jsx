@@ -41,7 +41,6 @@ const TPOS = [
 
 export default function Home() {
   const scrollRef = useRef(null);
-  const [activeFlavor, setActiveFlavor] = useState("Strawberry");
 
   useEffect(() => {
     const container = scrollRef.current;
@@ -820,7 +819,7 @@ export default function Home() {
 <Link
   href="/contact"
   ref={heroBtnReachRef}
-  className="bg-[#0072B0] text-white px-3 py-1.5 md:px-4 md:py-2 rounded-l-full text-xs md:text-[16px] reach-btn cursor-pointer inline-block"
+  className="bg-[#0072B0] text-white px-3 py-1.5 md:px-4 md:py-2 rounded-l-full rounded-r-md text-xs md:text-[16px] reach-btn cursor-pointer inline-block"
 >
   <span>Reach out</span>
 </Link>
@@ -992,73 +991,27 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 360° Flavour Showcase */}
-      <section className={`relative w-full min-h-[600px] md:aspect-video overflow-hidden transition-colors duration-700 ${activeFlavor === 'Strawberry' ? 'bg-[#FFF5F9]' : activeFlavor === 'Mango' ? 'bg-[#FFFDF4]' : 'bg-[#F0FBFF]'}`}>
-        
-        {/* Background Video */}
-        {activeFlavor === 'Strawberry' && (
-          <video
-            key="strawberry-bg"
-            src="/Ice_Cream_Video_oAKc4_h7.mp4"
-            autoPlay
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover z-0"
-          />
-        )}
-        
-        {activeFlavor === 'Mango' && (
-          <video
-            key="mango-bg"
-            src="/Ice_Cream_Video_Mango.mp4"
-            autoPlay
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover z-0"
-          />
-        )}
-        {activeFlavor === 'Blueberry' && (
-          <video
-            key="blueberry-bg"
-            src="/Ice_Cream_Video_Blueberry.mp4"
-            autoPlay
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover z-0"
-          />
-        )}
+      {/* Signature Product Showcase */}
+      <section className="relative w-full min-h-[600px] md:aspect-video overflow-hidden bg-[#FFF5F9]">
+        <video
+          key="signature-bg"
+          src="/Ice_Cream_Video_oAKc4_h7.mp4"
+          autoPlay
+          muted
+          playsInline
+          loop
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        />
 
-        {/* Content Container (Layered exactly on top) */}
         <div className="absolute inset-0 z-10 max-w-4xl mx-auto px-6 flex flex-col items-center justify-center text-center">
-          <p className="text-sm md:text-[20px] text-secound font-architect mb-2 drop-shadow-sm">Explore our lineup</p>
+          <p className="text-sm md:text-[20px] text-secound font-architect mb-2 drop-shadow-sm">Our signature treat</p>
           <h2 className="text-3xl md:text-5xl lg:text-[64px] font-bold text-primary font-archivo leading-tight mb-4 drop-shadow-md">
-            THREE ICONIC<br />FLAVOURS
+            STRAWBERRY<br />ON A STICK
           </h2>
           <p className="text-sm md:text-[18px] text-primary font-archivo mb-8 max-w-2xl drop-shadow-md bg-white/40 backdrop-blur-md rounded-2xl p-4">
-            From our signature strawberry swirl to the tropical mango burst and
-            the classic blueberry dream &mdash; every cone tells a story.
-            Discover your next favourite.
+            One iconic frozen treat, served with a smile. Our strawberry ice
+            cream bar is the crowd favorite at every event we roll up to.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <button 
-              onClick={() => setActiveFlavor('Strawberry')}
-              className={`transition-all duration-300 font-semibold px-6 py-2.5 rounded-full text-base shadow-lg ${activeFlavor === 'Strawberry' ? 'bg-[#FFA7E5] text-[#00334E] ring-4 ring-white scale-110' : 'bg-white/90 text-[#00334E] hover:bg-[#FFA7E5]'}`}
-            >
-              🍓 Strawberry
-            </button>
-            <button 
-              onClick={() => setActiveFlavor('Mango')}
-              className={`transition-all duration-300 font-semibold px-6 py-2.5 rounded-full text-base shadow-lg ${activeFlavor === 'Mango' ? 'bg-[#f7c948] text-[#00334E] ring-4 ring-white scale-110' : 'bg-white/90 text-[#00334E] hover:bg-[#f7c948]'}`}
-            >
-              🥭 Mango
-            </button>
-            <button 
-              onClick={() => setActiveFlavor('Blueberry')}
-              className={`transition-all duration-300 font-semibold px-6 py-2.5 rounded-full text-base shadow-lg ${activeFlavor === 'Blueberry' ? 'bg-[#52c8f0] text-white ring-4 ring-white scale-110' : 'bg-white/90 text-[#00334E] hover:bg-[#52c8f0]'}`}
-            >
-              🫐 Blueberry
-            </button>
-          </div>
         </div>
       </section>
 
