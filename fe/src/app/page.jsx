@@ -15,17 +15,17 @@ gsap.registerPlugin(ScrollTrigger);
 const FLAVORS = [
   {
     bg: "#FFA7E5",
-    img: "/ices/kem1.png",
+    img: "/kem15.avif",
     tops: ["/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png"],
   },
   {
     bg: "#f7c948",
-    img: "/ices/kem2.jpg",
+    img: "/kem16.avif",
     tops: ["/m1.png", "/m1.png", "/m1.png", "/m1.png", "/m1.png", "/m1.png"],
   },
   {
     bg: "#52c8f0",
-    img: "/ices/kem3.webp",
+    img: "/kem17.avif",
     tops: ["/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png"],
   },
 ];
@@ -590,41 +590,41 @@ export default function Home() {
             " />
           </filter>
         </svg>
-        
+
         {/* ── Cốm rain particles ── */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 5 }}>
           {[
-            { src: "/s1.png",    left:  3, dur: 4.2, delay: 0.0, size: 28, op: 0.75, r0: "-10deg", r1:  "25deg", sway:  "18px" },
-            { src: "/m1.png",    left:  9, dur: 5.8, delay: 0.6, size: 22, op: 0.65, r0:  "15deg", r1: "-20deg", sway: "-14px" },
-            { src: "/cendy1.png",left: 15, dur: 3.9, delay: 1.2, size: 20, op: 0.80, r0:  "-5deg", r1:  "30deg", sway:  "22px" },
-            { src: "/s1.png",    left: 22, dur: 6.1, delay: 0.3, size: 26, op: 0.70, r0:  "20deg", r1: "-15deg", sway: "-20px" },
-            { src: "/cendy2.png",left: 28, dur: 4.5, delay: 1.8, size: 18, op: 0.85, r0: "-18deg", r1:  "35deg", sway:  "16px" },
-            { src: "/m1.png",    left: 34, dur: 5.2, delay: 0.9, size: 24, op: 0.60, r0:  "12deg", r1: "-25deg", sway: "-18px" },
-            { src: "/cendy3.png",left: 40, dur: 3.7, delay: 2.1, size: 22, op: 0.75, r0:  "-8deg", r1:  "20deg", sway:  "24px" },
-            { src: "/s1.png",    left: 46, dur: 6.4, delay: 0.4, size: 30, op: 0.65, r0:  "25deg", r1: "-30deg", sway: "-12px" },
-            { src: "/cendy1.png",left: 52, dur: 4.0, delay: 1.5, size: 20, op: 0.80, r0: "-15deg", r1:  "18deg", sway:  "20px" },
-            { src: "/m1.png",    left: 58, dur: 5.5, delay: 0.7, size: 26, op: 0.70, r0:  "10deg", r1: "-22deg", sway: "-16px" },
-            { src: "/cendy2.png",left: 64, dur: 3.8, delay: 2.4, size: 18, op: 0.85, r0: "-20deg", r1:  "28deg", sway:  "14px" },
-            { src: "/s1.png",    left: 70, dur: 6.0, delay: 1.0, size: 24, op: 0.60, r0:  "18deg", r1: "-12deg", sway: "-22px" },
-            { src: "/cendy3.png",left: 76, dur: 4.3, delay: 0.2, size: 22, op: 0.75, r0:  "-6deg", r1:  "32deg", sway:  "18px" },
-            { src: "/m1.png",    left: 82, dur: 5.0, delay: 1.7, size: 28, op: 0.65, r0:  "22deg", r1: "-18deg", sway: "-20px" },
-            { src: "/cendy1.png",left: 88, dur: 3.6, delay: 2.8, size: 20, op: 0.80, r0: "-12deg", r1:  "22deg", sway:  "26px" },
-            { src: "/s1.png",    left: 94, dur: 6.3, delay: 0.5, size: 26, op: 0.70, r0:  "16deg", r1: "-26deg", sway: "-10px" },
-            { src: "/cendy2.png",left:  6, dur: 4.8, delay: 3.2, size: 18, op: 0.85, r0: "-22deg", r1:  "15deg", sway:  "20px" },
-            { src: "/m1.png",    left: 13, dur: 5.6, delay: 1.4, size: 24, op: 0.60, r0:  "14deg", r1: "-28deg", sway: "-14px" },
-            { src: "/s1.png",    left: 19, dur: 3.5, delay: 2.6, size: 30, op: 0.75, r0:  "-9deg", r1:  "36deg", sway:  "22px" },
-            { src: "/cendy3.png",left: 25, dur: 5.9, delay: 0.8, size: 22, op: 0.65, r0:  "28deg", r1: "-16deg", sway: "-18px" },
-            { src: "/cendy1.png",left: 31, dur: 4.1, delay: 1.9, size: 20, op: 0.80, r0: "-16deg", r1:  "24deg", sway:  "16px" },
-            { src: "/m1.png",    left: 37, dur: 6.2, delay: 3.5, size: 26, op: 0.70, r0:  "11deg", r1: "-20deg", sway: "-24px" },
-            { src: "/s1.png",    left: 43, dur: 3.9, delay: 0.1, size: 24, op: 0.60, r0: "-24deg", r1:  "30deg", sway:  "12px" },
-            { src: "/cendy2.png",left: 49, dur: 5.3, delay: 2.2, size: 18, op: 0.85, r0:  "19deg", r1: "-14deg", sway: "-16px" },
-            { src: "/cendy3.png",left: 55, dur: 4.7, delay: 1.1, size: 22, op: 0.75, r0:  "-7deg", r1:  "26deg", sway:  "20px" },
-            { src: "/m1.png",    left: 61, dur: 6.5, delay: 3.0, size: 28, op: 0.65, r0:  "23deg", r1: "-32deg", sway: "-22px" },
-            { src: "/s1.png",    left: 67, dur: 4.4, delay: 0.9, size: 26, op: 0.70, r0: "-13deg", r1:  "18deg", sway:  "14px" },
-            { src: "/cendy1.png",left: 73, dur: 5.1, delay: 2.5, size: 20, op: 0.80, r0:  "17deg", r1: "-24deg", sway: "-12px" },
-            { src: "/s1.png",    left: 79, dur: 3.7, delay: 1.3, size: 24, op: 0.60, r0: "-21deg", r1:  "34deg", sway:  "26px" },
-            { src: "/cendy2.png",left: 85, dur: 5.7, delay: 2.9, size: 18, op: 0.85, r0:  "26deg", r1: "-10deg", sway: "-20px" },
-            { src: "/m1.png",    left: 91, dur: 4.6, delay: 0.3, size: 22, op: 0.75, r0: "-11deg", r1:  "22deg", sway:  "18px" },
+            { src: "/s1.png", left: 3, dur: 4.2, delay: 0.0, size: 28, op: 0.75, r0: "-10deg", r1: "25deg", sway: "18px" },
+            { src: "/m1.png", left: 9, dur: 5.8, delay: 0.6, size: 22, op: 0.65, r0: "15deg", r1: "-20deg", sway: "-14px" },
+            { src: "/cendy1.png", left: 15, dur: 3.9, delay: 1.2, size: 20, op: 0.80, r0: "-5deg", r1: "30deg", sway: "22px" },
+            { src: "/s1.png", left: 22, dur: 6.1, delay: 0.3, size: 26, op: 0.70, r0: "20deg", r1: "-15deg", sway: "-20px" },
+            { src: "/cendy2.png", left: 28, dur: 4.5, delay: 1.8, size: 18, op: 0.85, r0: "-18deg", r1: "35deg", sway: "16px" },
+            { src: "/m1.png", left: 34, dur: 5.2, delay: 0.9, size: 24, op: 0.60, r0: "12deg", r1: "-25deg", sway: "-18px" },
+            { src: "/cendy3.png", left: 40, dur: 3.7, delay: 2.1, size: 22, op: 0.75, r0: "-8deg", r1: "20deg", sway: "24px" },
+            { src: "/s1.png", left: 46, dur: 6.4, delay: 0.4, size: 30, op: 0.65, r0: "25deg", r1: "-30deg", sway: "-12px" },
+            { src: "/cendy1.png", left: 52, dur: 4.0, delay: 1.5, size: 20, op: 0.80, r0: "-15deg", r1: "18deg", sway: "20px" },
+            { src: "/m1.png", left: 58, dur: 5.5, delay: 0.7, size: 26, op: 0.70, r0: "10deg", r1: "-22deg", sway: "-16px" },
+            { src: "/cendy2.png", left: 64, dur: 3.8, delay: 2.4, size: 18, op: 0.85, r0: "-20deg", r1: "28deg", sway: "14px" },
+            { src: "/s1.png", left: 70, dur: 6.0, delay: 1.0, size: 24, op: 0.60, r0: "18deg", r1: "-12deg", sway: "-22px" },
+            { src: "/cendy3.png", left: 76, dur: 4.3, delay: 0.2, size: 22, op: 0.75, r0: "-6deg", r1: "32deg", sway: "18px" },
+            { src: "/m1.png", left: 82, dur: 5.0, delay: 1.7, size: 28, op: 0.65, r0: "22deg", r1: "-18deg", sway: "-20px" },
+            { src: "/cendy1.png", left: 88, dur: 3.6, delay: 2.8, size: 20, op: 0.80, r0: "-12deg", r1: "22deg", sway: "26px" },
+            { src: "/s1.png", left: 94, dur: 6.3, delay: 0.5, size: 26, op: 0.70, r0: "16deg", r1: "-26deg", sway: "-10px" },
+            { src: "/cendy2.png", left: 6, dur: 4.8, delay: 3.2, size: 18, op: 0.85, r0: "-22deg", r1: "15deg", sway: "20px" },
+            { src: "/m1.png", left: 13, dur: 5.6, delay: 1.4, size: 24, op: 0.60, r0: "14deg", r1: "-28deg", sway: "-14px" },
+            { src: "/s1.png", left: 19, dur: 3.5, delay: 2.6, size: 30, op: 0.75, r0: "-9deg", r1: "36deg", sway: "22px" },
+            { src: "/cendy3.png", left: 25, dur: 5.9, delay: 0.8, size: 22, op: 0.65, r0: "28deg", r1: "-16deg", sway: "-18px" },
+            { src: "/cendy1.png", left: 31, dur: 4.1, delay: 1.9, size: 20, op: 0.80, r0: "-16deg", r1: "24deg", sway: "16px" },
+            { src: "/m1.png", left: 37, dur: 6.2, delay: 3.5, size: 26, op: 0.70, r0: "11deg", r1: "-20deg", sway: "-24px" },
+            { src: "/s1.png", left: 43, dur: 3.9, delay: 0.1, size: 24, op: 0.60, r0: "-24deg", r1: "30deg", sway: "12px" },
+            { src: "/cendy2.png", left: 49, dur: 5.3, delay: 2.2, size: 18, op: 0.85, r0: "19deg", r1: "-14deg", sway: "-16px" },
+            { src: "/cendy3.png", left: 55, dur: 4.7, delay: 1.1, size: 22, op: 0.75, r0: "-7deg", r1: "26deg", sway: "20px" },
+            { src: "/m1.png", left: 61, dur: 6.5, delay: 3.0, size: 28, op: 0.65, r0: "23deg", r1: "-32deg", sway: "-22px" },
+            { src: "/s1.png", left: 67, dur: 4.4, delay: 0.9, size: 26, op: 0.70, r0: "-13deg", r1: "18deg", sway: "14px" },
+            { src: "/cendy1.png", left: 73, dur: 5.1, delay: 2.5, size: 20, op: 0.80, r0: "17deg", r1: "-24deg", sway: "-12px" },
+            { src: "/s1.png", left: 79, dur: 3.7, delay: 1.3, size: 24, op: 0.60, r0: "-21deg", r1: "34deg", sway: "26px" },
+            { src: "/cendy2.png", left: 85, dur: 5.7, delay: 2.9, size: 18, op: 0.85, r0: "26deg", r1: "-10deg", sway: "-20px" },
+            { src: "/m1.png", left: 91, dur: 4.6, delay: 0.3, size: 22, op: 0.75, r0: "-11deg", r1: "22deg", sway: "18px" },
           ].map((p, i) => (
             <img
               key={i}
@@ -700,11 +700,10 @@ export default function Home() {
               >
                 <div
                   className={`rounded-full transition-all duration-500 flex items-center justify-center
-        ${
-          cur === 0
-            ? "border-2 border-white p-2.5"
-            : "border-[3px] border-transparent p-2"
-        }`}
+        ${cur === 0
+                      ? "border-2 border-white p-2.5"
+                      : "border-[3px] border-transparent p-2"
+                    }`}
                 >
                   <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-[#FFFFFF33] overflow-hidden">
                     <Image
@@ -725,11 +724,10 @@ export default function Home() {
               >
                 <div
                   className={`rounded-full transition-all duration-500 flex items-center justify-center
-        ${
-          cur === 1
-            ? "border-2 border-white p-2.5"
-            : "border-[3px] border-transparent p-2"
-        }`}
+        ${cur === 1
+                      ? "border-2 border-white p-2.5"
+                      : "border-[3px] border-transparent p-2"
+                    }`}
                 >
                   <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-white overflow-hidden">
                     <Image
@@ -750,11 +748,10 @@ export default function Home() {
               >
                 <div
                   className={`rounded-full transition-all duration-500 flex items-center justify-center
-        ${
-          cur === 2
-            ? "border-2 border-white p-2.5"
-            : "border-[3px] border-transparent p-2"
-        }`}
+        ${cur === 2
+                      ? "border-2 border-white p-2.5"
+                      : "border-[3px] border-transparent p-2"
+                    }`}
                 >
                   <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-white overflow-hidden">
                     <Image
@@ -809,20 +806,20 @@ export default function Home() {
             {/* right buttons */}
             <div className="absolute top-40 lg:top-40 right-35 sm:right-4 md:right-6 lg:right-12 flex flex-col gap-2 md:gap-4 z-20">
               <Link
-  href="/about"
-  ref={heroBtnAboutRef}
-  className="bg-[#00334E] text-white px-3 py-1.5 md:px-4 md:py-2 rounded-l-full rounded-r-md text-xs md:text-[16px] about-btn cursor-pointer inline-block"
->
-  About Us
-</Link>
+                href="/about"
+                ref={heroBtnAboutRef}
+                className="bg-[#00334E] text-white px-3 py-1.5 md:px-4 md:py-2 rounded-l-full rounded-r-md text-xs md:text-[16px] about-btn cursor-pointer inline-block"
+              >
+                About Us
+              </Link>
 
-<Link
-  href="/contact"
-  ref={heroBtnReachRef}
-  className="bg-[#0072B0] text-white px-3 py-1.5 md:px-4 md:py-2 rounded-l-full rounded-r-md text-xs md:text-[16px] reach-btn cursor-pointer inline-block"
->
-  <span>Reach out</span>
-</Link>
+              <Link
+                href="/contact"
+                ref={heroBtnReachRef}
+                className="bg-[#0072B0] text-white px-3 py-1.5 md:px-4 md:py-2 rounded-l-full rounded-r-md text-xs md:text-[16px] reach-btn cursor-pointer inline-block"
+              >
+                <span>Reach out</span>
+              </Link>
             </div>
 
           </div>
@@ -843,7 +840,7 @@ export default function Home() {
 
           <Image
             ref={rightImg}
-            src="/cookie.png"
+            src="/ices/kem13.webp"
             alt="cookie"
             width={320}
             height={320}
@@ -995,7 +992,7 @@ export default function Home() {
       <section className="relative w-full min-h-[600px] md:aspect-video overflow-hidden bg-[#FFF5F9]">
         <video
           key="signature-bg"
-          src="/Ice_Cream_Video_oAKc4_h7.mp4"
+          src="/ice_video.mp4"
           autoPlay
           muted
           playsInline
