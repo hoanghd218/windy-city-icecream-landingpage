@@ -302,7 +302,7 @@ function ContactPageInner() {
           />
           <Image
             ref={rightImgRef}
-            src="/icecon.png"
+            src="/ices/kem8.webp"
             alt=""
             width={220}
             height={220}

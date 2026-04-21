@@ -12,12 +12,12 @@ export default function IceCream360({ size = 160, speed = 8 }) {
 
   // 6 faces: front / back / left / right / top / bottom
   const faces = [
-    { label: "front",  img: "/1211991 2.png",  transform: `translateZ(${half}px)` },
-    { label: "back",   img: "/1211047 1.png",  transform: `rotateY(180deg) translateZ(${half}px)` },
-    { label: "left",   img: "/1211960 1.png",  transform: `rotateY(-90deg) translateZ(${half}px)` },
-    { label: "right",  img: "/s1.png",         transform: `rotateY(90deg)  translateZ(${half}px)` },
-    { label: "top",    img: "/m1.png",         transform: `rotateX(90deg)  translateZ(${half}px)` },
-    { label: "bottom", img: "/cendy1.png",     transform: `rotateX(-90deg) translateZ(${half}px)` },
+    { label: "front",  img: "/ices/kem1.png",   transform: `translateZ(${half}px)` },
+    { label: "back",   img: "/ices/kem2.jpg",   transform: `rotateY(180deg) translateZ(${half}px)` },
+    { label: "left",   img: "/ices/kem3.webp",  transform: `rotateY(-90deg) translateZ(${half}px)` },
+    { label: "right",  img: "/ices/kem5.avif",  transform: `rotateY(90deg)  translateZ(${half}px)` },
+    { label: "top",    img: "/ices/kem6.webp",  transform: `rotateX(90deg)  translateZ(${half}px)` },
+    { label: "bottom", img: "/ices/kem7.webp",  transform: `rotateX(-90deg) translateZ(${half}px)` },
   ];
 
   return (

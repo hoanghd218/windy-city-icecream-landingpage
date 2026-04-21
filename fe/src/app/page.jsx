@@ -15,17 +15,17 @@ gsap.registerPlugin(ScrollTrigger);
 const FLAVORS = [
   {
     bg: "#FFA7E5",
-    img: "/1211991 2.png",
+    img: "/ices/kem1.png",
     tops: ["/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png"],
   },
   {
     bg: "#f7c948",
-    img: "/1211960 1.png",
+    img: "/ices/kem2.jpg",
     tops: ["/m1.png", "/m1.png", "/m1.png", "/m1.png", "/m1.png", "/m1.png"],
   },
   {
     bg: "#52c8f0",
-    img: "/1211047 1.png",
+    img: "/ices/kem3.webp",
     tops: ["/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png"],
   },
 ];
@@ -1132,7 +1132,7 @@ export default function Home() {
           />
           <Image
             ref={rightImgRef}
-            src="/icecon.png"
+            src="/ices/kem8.webp"
             alt="Ice cream cone decoration"
             width={220}
             height={220}
