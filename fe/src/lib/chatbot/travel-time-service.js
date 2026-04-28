@@ -4,7 +4,9 @@
 import { getRedis } from './kv-client';
 
 const CACHE_TTL_SECONDS = 60 * 60 * 24 * 30; // 30 days
-const CACHE_PREFIX = 'travel:';
+// v2: peak-traffic durations (pessimistic). Bumped from v1 (free-flow) so
+// stale free-flow estimates are not served from cache.
+const CACHE_PREFIX = 'travel:v2:';
 
 export async function getTravelTimeFromZip(zipCode, streetAddress = '') {
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
@@ -27,12 +29,17 @@ export async function getTravelTimeFromZip(zipCode, streetAddress = '') {
     if (cached) return cached;
   }
 
-  // Call Google Distance Matrix
+  // Call Google Distance Matrix.
+  // We bill on PEAK traffic, not free-flow, so we ask for a pessimistic
+  // traffic model. departure_time=now is required to enable traffic data;
+  // traffic_model=pessimistic returns the upper-bound (rush-hour) estimate.
   const url =
     `https://maps.googleapis.com/maps/api/distancematrix/json` +
     `?origins=${encodeURIComponent(origin)}` +
     `&destinations=${encodeURIComponent(destination)}` +
     `&units=imperial` +
+    `&departure_time=now` +
+    `&traffic_model=pessimistic` +
     `&key=${apiKey}`;
 
   let data;
@@ -52,12 +59,15 @@ export async function getTravelTimeFromZip(zipCode, streetAddress = '') {
     };
   }
 
+  // Prefer the peak-traffic duration when available.
+  const seconds = elem.duration_in_traffic?.value ?? elem.duration.value;
   const result = {
     zipCode,
     streetAddress: streetAddress || null,
-    travelTimeMinutes: Math.round(elem.duration.value / 60),
+    travelTimeMinutes: Math.round(seconds / 60),
     distanceMiles: Math.round(elem.distance.value / 1609),
     destinationAddress: data.destination_addresses?.[0],
+    trafficModel: 'pessimistic',
   };
 
   // Only cache the ZIP-only resolution to keep the cache tier-stable

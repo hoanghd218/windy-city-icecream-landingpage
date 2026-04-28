@@ -166,13 +166,23 @@ border-top-right-radius: 10px;
   animation: chat-pulse 2s ease-in-out infinite;
 }
 
+/* Chatbot callout label — gentle bob to draw attention */
+@keyframes chat-callout-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.chat-callout-pulse {
+  animation: chat-callout-bob 2.4s ease-in-out infinite;
+}
+
 /* Respect user motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .animate-scroll,
   .animate-float,
   .marquee,
   .marquee2,
-  .chat-bubble-pulse {
+  .chat-bubble-pulse,
+  .chat-callout-pulse {
     animation: none !important;
   }
 

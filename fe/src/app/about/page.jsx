@@ -517,32 +517,30 @@ export default function About() {
               Our Journey
             </h1>
 
-            <p className="text-xs md:text-[16px] text-primary font-archivo mb-1">
-              The journey started when my nephew launched the business to help
-              his dad stay active and engaged. In 2010, I joined in to help grow
-              and run the company, bringing my passion for great service and
-              community spirit. Over the years, my brother retired and my nephew
-              moved to Texas, and for the last five years, I have proudly owned
-              and operated Windy City Ice Cream as a woman-owned business
+            <p className="text-xs md:text-[16px] text-primary font-archivo mb-6">
+              Windy City Ice Cream&apos;s journey began in 2010, founded as a
+              family mission to support my brother and nephew in staying
+              active and engaged in the community. Over time, as our family
+              roles evolved, I stepped up to lead the company. For the past
+              five years, I have proudly owned and operated Windy City Ice
+              Cream as a woman-owned business, carrying forward our founding
+              commitment to great service and community spirit.
             </p>
+
             <p className="text-xs md:text-[16px] text-primary font-archivo mb-6">
               Our commitment goes beyond just serving frozen treats. We strive
               to create joyful, nostalgic moments for families, neighborhoods,
               workplaces, and events across Cook, Will, and DuPage counties.
+              As a business rooted in family values, we understand the
+              importance of trust, reliability, and a personal touch. When you
+              book with us, you&apos;re not just getting an ice cream truck;
+              you&apos;re becoming part of our extended family.
             </p>
 
             <p className="text-xs md:text-[16px] text-primary font-archivo mb-6">
-              As a family-run business, we understand the importance of trust,
-              reliability, and a personal touch — values that continue to guide
-              us every day. When you book Windy City Ice Cream, you’re not just
-              getting an ice cream truck; you’re becoming part of our extended
-              family.
-            </p>
-
-            <p className="text-xs md:text-[16px] text-primary font-archivo mb-6">
-              Thank you for supporting a local, family-owned business that’s
-              been bringing smiles and sweet memories to the Chicago area for
-              over a decade.
+              Thank you for supporting a local, woman-owned business that has
+              proudly served the Chicago area for over a decade. We look
+              forward to bringing smiles to your next event.
             </p>
           </div>
         </section>
@@ -602,11 +600,11 @@ export default function About() {
             </h2>
 
             <p ref={sec3TxtRef} className="text-sm md:text-[16px] text-primary mb-6 max-w-md font-archivo">
-              When a bright yellow Windy City Ice Cream truck rolls up to your
-              event, the smiles and excitement are instant! Whether it’s a
-              corporate gathering, birthday party, graduation celebration, day
-              cares, schools, block party, family reunion, or workplace treat,
-              we create unforgettable moments with every stop.
+              Watch the excitement build the moment our bright yellow truck
+              rolls up to your venue. From team-building events and employee
+              appreciation days to large-scale corporate festivals, we
+              specialize in creating memorable, high-energy experiences for
+              your entire organization.
             </p>
 
             <button ref={sec3BtnRef} className="bg-[#0072B0] text-white px-4 py-2 rounded-l-full text-sm md:text-[16px] btn2">
@@ -640,59 +638,56 @@ export default function About() {
 
      <section className="w-full z-10 lg:mb-15 mb-10">
           <div className="bg-[#00334E] whitespace-nowrap overflow-hidden py-3 lg:-skew-y-3 z-10 lg:mb-0 mb-2">
-            <div className="marquee flex gap-20 lg:text-[24px] text-[15px] font-archivo text-white">
-              <div className="flex gap-20">
-                <span>#EmployeeAppreciation</span>
-                <span>#CorporateCatering</span>
-                <span>#IceCreamSocial</span>
-                <span>#CREAMYDELIGHTS</span>
-                <span>#SweetCelebrations</span>
-                <span>#OfficeTreats</span>
+            <div className="marquee flex gap-14 lg:text-[24px] text-[15px] font-archivo text-white">
+              <div className="flex gap-14">
+                <span>#BirthdayIceCream</span>
+                <span>#GraduationParty</span>
+                <span>#Celebrations</span>
+                <span>#Events</span>
+                <span>#IceCreamFun</span>
+                <span>#TruckParty</span>
               </div>
-              <div className="flex gap-20">
-                <span>#EmployeeAppreciation</span>
-                <span>#CorporateCatering</span>
-                <span>#IceCreamSocial</span>
-                <span>#CREAMYDELIGHTS</span>
-                <span>#SweetCelebrations</span>
-                <span>#OfficeTreats</span>
+              <div className="flex gap-14">
+                <span>#BirthdayIceCream</span>
+                <span>#GraduationParty</span>
+                <span>#Celebrations</span>
+                <span>#Events</span>
+                <span>#IceCreamFun</span>
+                <span>#TruckParty</span>
               </div>
-              <div className="flex gap-20">
-                <span>#EmployeeAppreciation</span>
-                <span>#CorporateCatering</span>
-                <span>#IceCreamSocial</span>
-                <span>#CREAMYDELIGHTS</span>
-                <span>#SweetCelebrations</span>
-                <span>#OfficeTreats</span>
+              <div className="flex gap-14">
+                <span>#BirthdayIceCream</span>
+                <span>#GraduationParty</span>
+                <span>#Celebrations</span>
+                <span>#Events</span>
+                <span>#IceCreamFun</span>
+                <span>#TruckParty</span>
               </div>
             </div>
           </div>
 
           <div className="bg-[#00334E] whitespace-nowrap overflow-hidden py-3 lg:skew-y-3 lg:-mt-14 mt-1 z-10">
-            <div className="marquee2 flex gap-14 lg:text-[24px] text-[15px] font-archivo text-white">
-              <div className="flex gap-14">
-                <span>#BirthdayIceCream</span>
-                <span>#GraduationParty</span>
-                <span>#Celebrations</span>
-                <span>#Events</span>
-                <span>#IceCreamFun</span>
-                <span>#TruckParty</span>
+            <div className="marquee2 flex gap-20 lg:text-[24px] text-[15px] font-archivo text-white">
+              <div className="flex gap-20">
+                <span>#EmployeeAppreciation</span>
+                <span>#CorporateCatering</span>
+                <span>#IceCreamSocial</span>
+                <span>#SweetCelebrations</span>
+                <span>#OfficeTreats</span>
               </div>
-              <div className="flex gap-14">
-                <span>#BirthdayIceCream</span>
-                <span>#GraduationParty</span>
-                <span>#Celebrations</span>
-                <span>#Events</span>
-                <span>#IceCreamFun</span>
-                <span>#TruckParty</span>
+              <div className="flex gap-20">
+                <span>#EmployeeAppreciation</span>
+                <span>#CorporateCatering</span>
+                <span>#IceCreamSocial</span>
+                <span>#SweetCelebrations</span>
+                <span>#OfficeTreats</span>
               </div>
-              <div className="flex gap-14">
-                <span>#BirthdayIceCream</span>
-                <span>#GraduationParty</span>
-                <span>#Celebrations</span>
-                <span>#Events</span>
-                <span>#IceCreamFun</span>
-                <span>#TruckParty</span>
+              <div className="flex gap-20">
+                <span>#EmployeeAppreciation</span>
+                <span>#CorporateCatering</span>
+                <span>#IceCreamSocial</span>
+                <span>#SweetCelebrations</span>
+                <span>#OfficeTreats</span>
               </div>
             </div>
           </div>
@@ -788,7 +783,9 @@ export default function About() {
                 ICE CREAM TRUCKS AND CARTS SERVING CORPORATE EVENTS OF ALL SIZES
               </h2>
               <p className="mt-4 text-primary text-[16px] lg:max-w-[756px] font-archivo">
-                Windy City Ice Cream is proudly based...
+                Windy City Ice Cream is proudly based in Alsip, Illinois,
+                delivering premium ice cream truck experiences throughout the
+                Chicago area.
               </p>
               <button
                 className="bg-[#0072B0] text-white px-4 py-2 rounded-r-full text-sm md:text-[16px] btn relative overflow-hidden group transform transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer mt-3"
@@ -847,7 +844,9 @@ export default function About() {
               READY TO BRING AN ICE CREAM TRUCK TO YOUR EVENT?
             </h2>
             <p className="mt-4 text-primary text-sm md:text-[22px]">
-              With hundreds of satisfied customers all over Chicago...
+              From annual corporate milestones to staff celebrations, we are
+              the trusted choice for companies, HR departments, and loyal
+              clients across Chicago who rely on us year after year.
             </p>
             <button className="bg-[#0072B0] text-white px-4 py-2 rounded-r-full text-sm md:text-[16px] btn relative overflow-hidden group transform transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer mt-3">
               <span className="relative z-10">Reach out</span>

@@ -15,7 +15,7 @@ const QUICK_REPLIES = [
 ];
 
 const GREETING =
-  "Hey there! 🍦 I'm Scoopy. Ask about our services, pricing, or get a quick estimate for your event!";
+  "Hey there! 🍦 I'm Frosty. Ask about our services, pricing, or get a quick estimate for your event!";
 
 // Walk through chat messages and pull out everything we know about the user
 // from tool inputs/outputs (zip, service type, qty, hours, contact info).
@@ -123,6 +123,7 @@ export default function Chatbot() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [hasUserMessaged, setHasUserMessaged] = useState(false);
+  const [hasOpenedOnce, setHasOpenedOnce] = useState(false);
   const greetedRef = useRef(false);
 
   const chatWindowRef = useRef(null);
@@ -184,6 +185,7 @@ export default function Chatbot() {
       const next = !prev;
       if (next && !greetedRef.current) {
         greetedRef.current = true;
+        setHasOpenedOnce(true);
         setMessages([
           {
             id: "greeting",
@@ -233,6 +235,27 @@ export default function Chatbot() {
 
   return (
     <>
+      {/* Callout label — visible until user opens chat the first time */}
+      {!isOpen && !hasOpenedOnce && (
+        <button
+          onClick={handleToggle}
+          className="fixed bottom-8 right-24 z-50 hidden sm:flex items-center gap-2 px-4 py-2 rounded-full shadow-lg cursor-pointer chat-callout-pulse"
+          style={{
+            backgroundColor: "white",
+            color: "var(--primary-heading)",
+            border: "1px solid var(--secound-heading)",
+          }}
+          aria-label="Ask Frosty about pricing"
+        >
+          <span className="text-sm font-archivo font-semibold whitespace-nowrap">
+            Ask Frosty about pricing
+          </span>
+          <span aria-hidden="true" style={{ color: "var(--secound-heading)" }}>
+            →
+          </span>
+        </button>
+      )}
+
       {/* Chat bubble button */}
       <button
         ref={bubbleRef}
@@ -258,7 +281,7 @@ export default function Chatbot() {
         <div
           ref={chatWindowRef}
           role="complementary"
-          aria-label="Chat with Scoopy"
+          aria-label="Chat with Frosty"
           className={
             "fixed inset-0 z-50 flex flex-col shadow-2xl border-white/20 overflow-hidden sm:inset-auto sm:bottom-24 sm:right-4 sm:rounded-2xl sm:border " +
             (isExpanded
@@ -281,7 +304,7 @@ export default function Chatbot() {
               🍦
             </div>
             <div className="flex-1">
-              <p className="text-white font-bold font-architect text-sm">Scoopy</p>
+              <p className="text-white font-bold font-architect text-sm">Frosty</p>
               <p className="text-white/70 text-xs">Windy City Ice Cream</p>
             </div>
             <button

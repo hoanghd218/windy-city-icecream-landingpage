@@ -15,17 +15,17 @@ gsap.registerPlugin(ScrollTrigger);
 const FLAVORS = [
   {
     bg: "#FFA7E5",
-    img: "/kem15.avif",
+    img: "/ices/kem15.avif",
     tops: ["/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png"],
   },
   {
     bg: "#f7c948",
-    img: "/kem16.avif",
+    img: "/ices/kem16.avif",
     tops: ["/m1.png", "/m1.png", "/m1.png", "/m1.png", "/m1.png", "/m1.png"],
   },
   {
     bg: "#52c8f0",
-    img: "/kem17.avif",
+    img: "/ices/kem17.avif",
     tops: ["/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png"],
   },
 ];
@@ -579,7 +579,7 @@ export default function Home() {
 }
       `}</style>
 
-      <main className="relative overflow-hidden lg:min-h-screen h-120">
+      <main className="relative lg:min-h-screen min-h-120 lg:pb-16">
         <svg width="0" height="0" className="absolute pointer-events-none">
           <filter id="remove-black" colorInterpolationFilters="sRGB">
             <feColorMatrix type="matrix" values="
@@ -864,9 +864,10 @@ export default function Home() {
               THE ICE CREAM TRUCK EXPERIENCE
             </h1>
             <p className="text-xs md:text-[22px] text-primary font-archivo mb-6">
-              Windy City Ice Cream services Chicago and the surrounding suburbs
-              with a great ice cream truck experience. If you are looking for a
-              fun and unique idea to try at your next gathering...
+              Professional service, nostalgic smiles. Windy City Ice Cream
+              delivers a premium ice cream truck experience to your corporate
+              and private events across Chicago. Make your next gathering
+              unforgettable with a sweet, classic treat.
             </p>
             <div className="flex justify-center gap-4">
               <Link href="/about" className="bg-[#00334E] text-white px-4 py-2 text-sm md:text-[16px] btn2 rounded-r-md rounded-l-full relative overflow-hidden group transform transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer inline-block">
@@ -889,7 +890,6 @@ export default function Home() {
                 <span>#EmployeeAppreciation</span>
                 <span>#CorporateCatering</span>
                 <span>#IceCreamSocial</span>
-                <span>#CREAMYDELIGHTS</span>
                 <span>#SweetCelebrations</span>
                 <span>#OfficeTreats</span>
               </div>
@@ -897,7 +897,6 @@ export default function Home() {
                 <span>#EmployeeAppreciation</span>
                 <span>#CorporateCatering</span>
                 <span>#IceCreamSocial</span>
-                <span>#CREAMYDELIGHTS</span>
                 <span>#SweetCelebrations</span>
                 <span>#OfficeTreats</span>
               </div>
@@ -905,7 +904,6 @@ export default function Home() {
                 <span>#EmployeeAppreciation</span>
                 <span>#CorporateCatering</span>
                 <span>#IceCreamSocial</span>
-                <span>#CREAMYDELIGHTS</span>
                 <span>#SweetCelebrations</span>
                 <span>#OfficeTreats</span>
               </div>
@@ -1003,11 +1001,15 @@ export default function Home() {
         <div className="absolute inset-0 z-10 max-w-4xl mx-auto px-6 flex flex-col items-center justify-center text-center">
           <p className="text-sm md:text-[20px] text-secound font-architect mb-2 drop-shadow-sm">Our signature treat</p>
           <h2 className="text-3xl md:text-5xl lg:text-[64px] font-bold text-primary font-archivo leading-tight mb-4 drop-shadow-md">
-            STRAWBERRY<br />ON A STICK
+            STRAWBERRY<br />SHORTCAKE
           </h2>
           <p className="text-sm md:text-[18px] text-primary font-archivo mb-8 max-w-2xl drop-shadow-md bg-white/40 backdrop-blur-md rounded-2xl p-4">
-            One iconic frozen treat, served with a smile. Our strawberry ice
-            cream bar is the crowd favorite at every event we roll up to.
+            One of the undisputed favorites of the ice cream truck. Strawberry
+            Shortcake bar is a true crowd-pleaser, featuring a luscious
+            strawberry and vanilla center wrapped in that iconic, crispy
+            strawberry shortcake crumb coating. It&apos;s a timeless, crunchy,
+            and creamy treat that brings back the best childhood memories in
+            every single bite.
           </p>
         </div>
       </section>
@@ -1037,7 +1039,10 @@ export default function Home() {
               ref={s4TxtRef}
               className="text-sm md:text-[16px] text-primary mb-6 max-w-md font-archivo"
             >
-              With our unique fleet of ice cream trucks...
+              Based in Alsip, IL, we serve the greater Chicago area —
+              including Cook, Will, and DuPage counties. Travel fees are
+              calculated by drive time from our warehouse during peak traffic
+              so your quote stays accurate.
             </p>
 
             <Link
@@ -1083,7 +1088,9 @@ export default function Home() {
                 ICE CREAM TRUCKS AND CARTS SERVING CORPORATE EVENTS OF ALL SIZES
               </h2>
               <p className="mt-4 text-primary text-[16px] lg:max-w-189 font-archivo">
-                Windy City Ice Cream is proudly based...
+                Windy City Ice Cream is proudly based in Alsip, Illinois,
+                delivering premium ice cream truck experiences throughout the
+                Chicago area.
               </p>
               <Link
                 href="/contact"
@@ -1141,7 +1148,9 @@ export default function Home() {
               READY TO BRING AN ICE CREAM TRUCK TO YOUR EVENT?
             </h2>
             <p className="mt-4 text-primary text-sm md:text-[22px]">
-              With hundreds of satisfied customers all over Chicago...
+              From annual corporate milestones to staff celebrations, we are
+              the trusted choice for companies, HR departments, and loyal
+              clients across Chicago who rely on us year after year.
             </p>
             <Link href="/contact" className="bg-[#0072B0] text-white px-4 py-2 rounded-r-full text-sm md:text-[16px] btn relative overflow-hidden group transform transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer mt-3 inline-block">
               <span className="relative z-10">Reach out</span>

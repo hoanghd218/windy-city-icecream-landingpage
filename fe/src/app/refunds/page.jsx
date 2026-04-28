@@ -119,7 +119,9 @@ export default function Refunds() {
               READY TO BRING AN ICE CREAM TRUCK TO YOUR EVENT?
             </h2>
             <p className="mt-4 text-primary text-sm md:text-[22px]">
-              With hundreds of satisfied customers all over Chicago...
+              From annual corporate milestones to staff celebrations, we are
+              the trusted choice for companies, HR departments, and loyal
+              clients across Chicago who rely on us year after year.
             </p>
             <button className="bg-[#0072B0] text-white px-4 py-2 rounded-r-full text-sm md:text-[16px] btn relative overflow-hidden group transform transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer mt-3">
               <span className="relative z-10">Reach out</span>

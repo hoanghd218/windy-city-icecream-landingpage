@@ -44,3 +44,4 @@ coverage
 /fe/.env.production
 config.bat
 node_modules
+.vercel

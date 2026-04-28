@@ -451,8 +451,9 @@ export default function Events() {
             </h1>
 
             <p className="text-sm md:text-[16px] text-primary font-archivo max-w-[765px] mx-auto">
-              We specialize in bringing the joy of frozen treats directly to
-              your workplace or corporate event.
+              We deliver more than just dessert; we bring the fun. Let us
+              transform your next office milestone or team celebration with a
+              classic, full-service ice cream truck experience.
             </p>
           </div>
         </div>
@@ -496,10 +497,10 @@ export default function Events() {
               ref={sec2ParaRef}
               className="text-sm md:text-[16px] text-primary font-archivo mx-auto"
             >
-              Whether you&apos;re planning an employee appreciation day, client
-              celebration, team-building activity, or office party, our ice
-              cream trucks provide a fun and memorable way to boost morale and
-              show your team you care.
+              Transform your next corporate event into an unforgettable
+              celebration. We handle the details so you can focus on your
+              team, providing the kind of joy and nostalgia that keeps our
+              corporate clients coming back year after year.
             </p>
           </div>
 
@@ -548,11 +549,11 @@ export default function Events() {
               ref={sec3TxtRef}
               className="text-sm md:text-[16px] text-primary mb-6 max-w-md font-archivo"
             >
-              When a bright yellow Windy City Ice Cream truck rolls up to your
-              event, the smiles and excitement are instant! Whether it’s a
-              corporate gathering, birthday party, graduation celebration, day
-              cares, schools, block party, family reunion, or workplace treat,
-              we create unforgettable moments with every stop.
+              Watch the excitement build the moment our bright yellow truck
+              rolls up to your venue. From team-building events and employee
+              appreciation days to large-scale corporate festivals, we
+              specialize in creating memorable, high-energy experiences for
+              your entire organization.
             </p>
 
             <button
@@ -608,7 +609,9 @@ export default function Events() {
                 ICE CREAM TRUCKS AND CARTS SERVING CORPORATE EVENTS OF ALL SIZES
               </h2>
               <p className="mt-4 text-primary text-[16px] lg:max-w-[756px] font-archivo">
-                Windy City Ice Cream is proudly based...
+                Windy City Ice Cream is proudly based in Alsip, Illinois,
+                delivering premium ice cream truck experiences throughout the
+                Chicago area.
               </p>
               <button
                 className="bg-[#0072B0] text-white px-4 py-2 rounded-r-full text-sm md:text-[16px] btn relative overflow-hidden group transform transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer mt-3"
@@ -665,7 +668,9 @@ export default function Events() {
               READY TO BRING AN ICE CREAM TRUCK TO YOUR EVENT?
             </h2>
             <p className="mt-4 text-primary text-sm md:text-[22px]">
-              With hundreds of satisfied customers all over Chicago...
+              From annual corporate milestones to staff celebrations, we are
+              the trusted choice for companies, HR departments, and loyal
+              clients across Chicago who rely on us year after year.
             </p>
             <button className="bg-[#0072B0] text-white px-4 py-2 rounded-r-full text-sm md:text-[16px] btn relative overflow-hidden group transform transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer mt-3">
               <span className="relative z-10">Reach out</span>
