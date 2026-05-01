@@ -5,7 +5,6 @@
 const SENDGRID_URL = 'https://api.sendgrid.com/v3/mail/send';
 const DEFAULT_ADMIN = 'elena@windycityicecream.com';
 const DEFAULT_FROM = 'info@windycityicecream.com';
-const DEFAULT_CC = 'hoang.tran@prediction3d.com';
 
 function escapeHtml(s) {
   return String(s ?? '').replace(/[&<>"']/g, (c) => (
@@ -17,21 +16,14 @@ export async function sendAdminEmail({ subject, html, text, replyTo }) {
   const apiKey = process.env.SENDGRID_API_KEY;
   const from = process.env.SENDGRID_FROM_EMAIL || DEFAULT_FROM;
   const to = process.env.ADMIN_EMAIL || DEFAULT_ADMIN;
-  const ccEmail = process.env.ADMIN_CC_EMAIL ?? DEFAULT_CC;
 
   if (!apiKey) {
     console.warn('[sendgrid] SENDGRID_API_KEY not set, skipping email');
     return { ok: false, skipped: true };
   }
 
-  const personalization = { to: [{ email: to }], subject };
-  // Don't CC the same address as the To recipient (SendGrid rejects duplicates).
-  if (ccEmail && ccEmail !== to) {
-    personalization.cc = [{ email: ccEmail }];
-  }
-
   const payload = {
-    personalizations: [personalization],
+    personalizations: [{ to: [{ email: to }], subject }],
     from: { email: from, name: 'Windy City Ice Cream' },
     content: [
       ...(text ? [{ type: 'text/plain', value: text }] : []),
