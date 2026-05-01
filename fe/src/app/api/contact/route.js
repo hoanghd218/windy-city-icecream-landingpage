@@ -4,6 +4,7 @@
 import crypto from 'node:crypto';
 import { PutCommand } from '@aws-sdk/lib-dynamodb';
 import { getDocClient, CHAT_TABLE } from '@/lib/chatbot/dynamodb-client';
+import { sendAdminEmail, buildContactEmail } from '@/lib/email/sendgrid';
 
 export const runtime = 'nodejs';
 
@@ -97,6 +98,10 @@ export async function POST(req) {
     console.error('[contact]', err.name, err.message);
     return Response.json({ error: 'Failed to save submission' }, { status: 500 });
   }
+
+  // Fire-and-forget admin notification — don't block the response.
+  const { subject, html, text } = buildContactEmail(item.contact);
+  sendAdminEmail({ subject, html, text, replyTo: email }).catch(() => {});
 
   return Response.json({ ok: true, id });
 }

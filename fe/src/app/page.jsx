@@ -19,11 +19,6 @@ const FLAVORS = [
     tops: ["/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png"],
   },
   {
-    bg: "#f7c948",
-    img: "/ices/kem16.avif",
-    tops: ["/m1.png", "/m1.png", "/m1.png", "/m1.png", "/m1.png", "/m1.png"],
-  },
-  {
     bg: "#52c8f0",
     img: "/ices/kem17.avif",
     tops: ["/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png", "/s1.png"],
@@ -689,9 +684,10 @@ export default function Home() {
             ></div>
 
             {/* left flavor selectors */}
+            <div className="absolute top-1/2 -translate-y-1/2 left-5 sm:left-4 md:left-6 lg:left-18 z-10">
             <div
               ref={heroLeftSelectorsRef}
-              className="absolute left-5 sm:left-4 md:left-6 lg:left-18 flex flex-col gap-2 md:gap-8 z-10"
+              className="flex flex-col gap-2 md:gap-8"
             >
               {/* Flavor 0 */}
               <div
@@ -720,7 +716,7 @@ export default function Home() {
               {/* Flavor 1 */}
               <div
                 onClick={() => select(1)}
-                className="lg:-ml-10 -ml-8 rounded-full cursor-pointer flex items-center justify-center transition-all duration-500 ease-out hover:scale-110 hover:-translate-y-1"
+                className="lg:ml-1 ml-3 rounded-full cursor-pointer flex items-center justify-center transition-all duration-500 ease-out hover:scale-110 hover:-translate-y-1"
               >
                 <div
                   className={`rounded-full transition-all duration-500 flex items-center justify-center
@@ -740,30 +736,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-
-              {/* Flavor 2 */}
-              <div
-                onClick={() => select(2)}
-                className="lg:ml-1 ml-3 rounded-full cursor-pointer flex items-center justify-center transition-all duration-500 ease-out hover:scale-110 hover:-translate-y-1"
-              >
-                <div
-                  className={`rounded-full transition-all duration-500 flex items-center justify-center
-        ${cur === 2
-                      ? "border-2 border-white p-2.5"
-                      : "border-[3px] border-transparent p-2"
-                    }`}
-                >
-                  <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-white overflow-hidden">
-                    <Image
-                      src={FLAVORS[2].img}
-                      alt="flavor"
-                      width={48}
-                      height={48}
-                      className="w-6 sm:w-9 md:w-12 object-contain transition-transform duration-500"
-                    />
-                  </div>
-                </div>
-              </div>
+            </div>
             </div>
 
             {/* center ice cream */}
@@ -804,7 +777,7 @@ export default function Home() {
             </div>
 
             {/* right buttons */}
-            <div className="absolute top-40 lg:top-40 right-35 sm:right-4 md:right-6 lg:right-12 flex flex-col gap-2 md:gap-4 z-20">
+            <div className="absolute top-1/2 -translate-y-1/2 right-5 sm:right-4 md:right-6 lg:right-18 flex flex-col gap-2 md:gap-4 z-20">
               <Link
                 href="/about"
                 ref={heroBtnAboutRef}
