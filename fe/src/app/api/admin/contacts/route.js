@@ -98,6 +98,9 @@ export async function GET(req) {
   const submissions = allItems.map((item) => ({
     id: item.sessionId,
     ts: item.ts,
+    emailStatus: item.emailStatus || null,
+    emailedAt: item.emailedAt || null,
+    emailErrorCode: item.emailErrorCode || null,
     ...(item.contact || {}),
   }));
 

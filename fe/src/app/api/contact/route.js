@@ -5,6 +5,7 @@ import crypto from 'node:crypto';
 import { PutCommand } from '@aws-sdk/lib-dynamodb';
 import { getDocClient, CHAT_TABLE } from '@/lib/chatbot/dynamodb-client';
 import { sendAdminEmail, buildContactEmail } from '@/lib/email/sendgrid';
+import { updateEmailStatus, deriveEmailStatus } from '@/lib/email/email-status';
 
 export const runtime = 'nodejs';
 
@@ -99,9 +100,16 @@ export async function POST(req) {
     return Response.json({ error: 'Failed to save submission' }, { status: 500 });
   }
 
-  // Fire-and-forget admin notification — don't block the response.
+  // Send admin notification, then write delivery status back to DDB.
+  // Awaited so the status row is accurate by the time the user sees the thank-you screen.
   const { subject, html, text } = buildContactEmail(item.contact);
-  sendAdminEmail({ subject, html, text, replyTo: email }).catch(() => {});
+  const result = await sendAdminEmail({ subject, html, text, replyTo: email });
+  await updateEmailStatus({
+    sessionId: item.sessionId,
+    ts: item.ts,
+    status: deriveEmailStatus(result),
+    errorCode: result?.status,
+  });
 
   return Response.json({ ok: true, id });
 }

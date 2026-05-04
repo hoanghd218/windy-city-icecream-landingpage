@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import AdminNav from "../admin-nav";
+import EmailStatusBadge from "../email-status-badge";
 
 const PAGE_SIZES = [10, 20, 50];
 const PRESETS = [
@@ -280,6 +281,7 @@ function LeadsTable({ loading, leads, expandedId, expandedMsgs, onToggle }) {
               <th className="px-3 py-2 text-left">ZIP</th>
               <th className="px-3 py-2 text-right">Estimate</th>
               <th className="px-3 py-2 text-left">Booking Ref</th>
+              <th className="px-3 py-2 text-left">Email sent</th>
               <th className="px-3 py-2 text-right">#Msg</th>
             </tr>
           </thead>
@@ -322,11 +324,22 @@ function LeadRow({ lead, expanded, messages, onToggle }) {
         <td className="px-3 py-2 font-mono text-xs">
           {c.referenceId || <Muted />}
         </td>
+        <td className="px-3 py-2">
+          {c.referenceId ? (
+            <EmailStatusBadge
+              status={c.emailStatus}
+              errorCode={c.emailErrorCode}
+              sentAt={c.emailedAt}
+            />
+          ) : (
+            <Muted />
+          )}
+        </td>
         <td className="px-3 py-2 text-right">{lead.messageCount}</td>
       </tr>
       {expanded && (
         <tr>
-          <td colSpan={8} className="bg-gray-50 px-4 py-3">
+          <td colSpan={9} className="bg-gray-50 px-4 py-3">
             <div className="text-xs text-gray-500 mb-2 font-mono break-all">
               Session: {lead.sessionId}
             </div>

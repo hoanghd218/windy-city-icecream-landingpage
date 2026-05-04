@@ -6,6 +6,7 @@ import crypto from 'node:crypto';
 import { PutCommand } from '@aws-sdk/lib-dynamodb';
 import { getDocClient, CHAT_TABLE } from './dynamodb-client';
 import { sendAdminEmail, buildBookingEmail } from '../email/sendgrid';
+import { updateEmailStatus, deriveEmailStatus } from '../email/email-status';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const PHONE_RE = /^[\d\s()+\-.]{7,25}$/;
@@ -47,13 +48,14 @@ export async function submitBookingRequest({
     quoteDetails: quoteDetails || null,
   };
 
+  const itemKey = { sessionId: sessionId || 'unknown', ts: now.toISOString() };
+
   try {
     await client.send(
       new PutCommand({
         TableName: CHAT_TABLE,
         Item: {
-          sessionId: sessionId || 'unknown',
-          ts: now.toISOString(),
+          ...itemKey,
           role: 'booking-request',
           content: `Booking: ${fullName}`,
           dateKey: now.toISOString().slice(0, 10),
@@ -61,14 +63,19 @@ export async function submitBookingRequest({
         },
       })
     );
-
-    // Fire-and-forget admin notification.
-    const { subject, html, text } = buildBookingEmail(booking);
-    sendAdminEmail({ subject, html, text, replyTo: booking.email }).catch(() => {});
-
-    return { ok: true, referenceId, persisted: true };
   } catch (err) {
     console.error('[booking] write failed', err.name, err.message);
     return { ok: false, error: 'Could not save booking — please try again', referenceId };
   }
+
+  // Send admin notification, then write delivery status back to DDB.
+  const { subject, html, text } = buildBookingEmail(booking);
+  const result = await sendAdminEmail({ subject, html, text, replyTo: booking.email });
+  await updateEmailStatus({
+    ...itemKey,
+    status: deriveEmailStatus(result),
+    errorCode: result?.status,
+  });
+
+  return { ok: true, referenceId, persisted: true };
 }

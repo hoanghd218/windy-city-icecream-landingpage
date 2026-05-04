@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import AdminNav from "../admin-nav";
+import EmailStatusBadge from "../email-status-badge";
 
 const PAGE_SIZES = [10, 20, 50];
 const PRESETS = [
@@ -257,6 +258,7 @@ function SubmissionsTable({ loading, submissions, expandedId, onToggle }) {
               <th className="px-3 py-2 text-left">Event type</th>
               <th className="px-3 py-2 text-left">ZIP</th>
               <th className="px-3 py-2 text-right">People</th>
+              <th className="px-3 py-2 text-left">Email sent</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
@@ -291,10 +293,17 @@ function SubmissionRow({ s, expanded, onToggle }) {
         <td className="px-3 py-2">{s.eventType || <Muted />}</td>
         <td className="px-3 py-2">{s.zip || <Muted />}</td>
         <td className="px-3 py-2 text-right">{s.people || <Muted />}</td>
+        <td className="px-3 py-2">
+          <EmailStatusBadge
+            status={s.emailStatus}
+            errorCode={s.emailErrorCode}
+            sentAt={s.emailedAt}
+          />
+        </td>
       </tr>
       {expanded && (
         <tr>
-          <td colSpan={8} className="bg-gray-50 px-4 py-3">
+          <td colSpan={9} className="bg-gray-50 px-4 py-3">
             <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm">
               <Field label="Street">{s.street}</Field>
               <Field label="ZIP">{s.zip}</Field>

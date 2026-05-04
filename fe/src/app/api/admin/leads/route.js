@@ -110,6 +110,9 @@ export async function GET(req) {
           phone: item.booking.phone,
           email: item.booking.email,
           referenceId: item.booking.referenceId,
+          emailStatus: item.emailStatus || null,
+          emailedAt: item.emailedAt || null,
+          emailErrorCode: item.emailErrorCode || null,
         });
       }
     }
@@ -142,6 +145,9 @@ export async function GET(req) {
             phone: b.phone,
             email: b.email,
             referenceId: b.referenceId,
+            emailStatus: b.emailStatus,
+            emailedAt: b.emailedAt,
+            emailErrorCode: b.emailErrorCode,
           }
         : null,
     };
