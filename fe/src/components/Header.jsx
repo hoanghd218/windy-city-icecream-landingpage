@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { usePathname } from "next/navigation";
 
+const PAYMENT_LINK = "https://harlowlink.ipospays.com/portalApi/sl/KILtj_100626122413";
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -94,6 +96,14 @@ export default function Header() {
           <Link href="/service" className={`nav-link ${getLinkClass("/service")}`}>Service Area</Link>
           <Link href="/events" className={`nav-link ${getLinkClass("/events")}`}>Corporate events</Link>
           <Link href="/contact" className={`nav-link ${getLinkClass("/contact")}`}>Contact</Link>
+          <a
+            href={PAYMENT_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#CE598C] text-white px-5 py-1.5 -my-1.5 rounded-full font-semibold hover:bg-[#b54677] transition-colors duration-300"
+          >
+            Pay Now
+          </a>
         </nav>
 
         <button
@@ -119,6 +129,15 @@ export default function Header() {
           <Link href="/service" onClick={() => setMenuOpen(false)} className={`nav-link text-base ${getLinkClass("/service")}`}>Service Area</Link>
           <Link href="/events" onClick={() => setMenuOpen(false)} className={`nav-link text-base ${getLinkClass("/events")}`}>Corporate events</Link>
           <Link href="/contact" onClick={() => setMenuOpen(false)} className={`nav-link text-base ${getLinkClass("/contact")}`}>Contact</Link>
+          <a
+            href={PAYMENT_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMenuOpen(false)}
+            className="bg-[#CE598C] text-white text-base text-center px-5 py-2 rounded-full font-semibold hover:bg-[#b54677] transition-colors duration-300"
+          >
+            Pay Now
+          </a>
         </nav>
       )}
     </header>

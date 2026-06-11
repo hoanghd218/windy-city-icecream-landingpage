@@ -156,6 +156,14 @@ export default function Footer() {
           <Link href="/service">Service Area</Link>
           <Link href="/events">Corporate events</Link>
           <Link href="/contact">Contact</Link>
+          <a
+            href="https://harlowlink.ipospays.com/portalApi/sl/KILtj_100626122413"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-[#CE598C] hover:underline"
+          >
+            Pay Now
+          </a>
             </div>
 
             <div className="text-center text-sm md:text-[16px] text-primary font-archivo mb-4 px-4">
