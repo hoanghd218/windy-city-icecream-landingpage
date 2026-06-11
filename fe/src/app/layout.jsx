@@ -1,5 +1,8 @@
 import "./globals.css";
+import Script from "next/script";
 import { LocalBusinessJsonLd, WebsiteJsonLd } from "@/components/json-ld";
+
+const GA_MEASUREMENT_ID = "G-860HRT2S3Z";
 
 const SITE_URL = "https://windycityicecream.com";
 
@@ -69,6 +72,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="overflow-x-clip">
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
         <LocalBusinessJsonLd />
         <WebsiteJsonLd />
         {children}
