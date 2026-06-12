@@ -280,7 +280,7 @@ function ContactPageInner() {
                 <Image
                   key={index}
                   src={src}
-                  alt=""
+                  alt="Windy City Ice Cream truck serving guests at a Chicago-area event"
                   width={250}
                   height={300}
                   className="w-62.5 h-75 object-cover rounded-xl shrink-0"

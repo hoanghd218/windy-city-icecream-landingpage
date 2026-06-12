@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import Chatbot from "../../components/Chatbot";
 import Image from "next/image";
 import { useRef, useEffect } from "react";
+import { PRICING_FAQS } from "../../lib/seo/pricing-faqs";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -106,6 +107,33 @@ export default function Pricing() {
             <button className="bg-[#0072B0] text-white px-4 py-2 rounded-l-full text-sm md:text-[16px] btn2">
               Chat for Pricing
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ SECTION ── */}
+      <section className="w-full bg-[#F0FBFF] py-14 md:py-20">
+        <div className="max-w-[860px] mx-auto px-4">
+          <h2 className="text-2xl md:text-[40px] font-bold text-primary font-archivo text-center mb-8 uppercase">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-3">
+            {PRICING_FAQS.map((faq) => (
+              <details
+                key={faq.question}
+                className="bg-white rounded-xl shadow-sm p-5 group"
+              >
+                <summary className="cursor-pointer text-primary font-bold font-archivo text-sm md:text-[18px] list-none flex justify-between items-center">
+                  {faq.question}
+                  <span className="ml-3 text-[#0072B0] transition-transform duration-200 group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-primary text-sm md:text-[16px] font-archivo">
+                  {faq.answer}
+                </p>
+              </details>
+            ))}
           </div>
         </div>
       </section>

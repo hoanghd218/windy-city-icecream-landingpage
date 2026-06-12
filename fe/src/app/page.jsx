@@ -833,9 +833,9 @@ export default function Home() {
             <p className="text-xs md:text-[24px] text-secound font-architect mb-2">
               Nostalgia in Every Bite, Bringing Frozen Treats to You
             </p>
-            <h1 className="text-2xl md:text-4xl lg:text-[70px] font-bold text-primary font-archivo mb-4">
+            <h2 className="text-2xl md:text-4xl lg:text-[70px] font-bold text-primary font-archivo mb-4">
               THE ICE CREAM TRUCK EXPERIENCE
-            </h1>
+            </h2>
             <p className="text-xs md:text-[22px] text-primary font-archivo mb-6">
               Professional service, nostalgic smiles. Windy City Ice Cream
               delivers a premium ice cream truck experience to your corporate
@@ -1034,7 +1034,8 @@ export default function Home() {
             >
               <iframe
                 className="w-full h-full"
-                src="https://maps.google.com/maps?q=Chicago&t=&z=11&ie=UTF8&iwloc=&output=embed"
+                src="https://maps.google.com/maps?q=11641%20S%20Ridgeland%20Ave%2C%20Alsip%2C%20IL%2060803&t=&z=10&ie=UTF8&iwloc=&output=embed"
+                title="Windy City Ice Cream service area map — based in Alsip, IL"
                 loading="lazy"
               />
             </div>
@@ -1085,7 +1086,7 @@ export default function Home() {
                 <Image
                   key={index}
                   src={src}
-                  alt="Ice cream service event"
+                  alt="Windy City Ice Cream truck catering an event in the Chicago area"
                   width={250}
                   height={300}
                   className="w-62.5 h-75 object-cover rounded-xl shrink-0"

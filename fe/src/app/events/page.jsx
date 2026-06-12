@@ -632,7 +632,7 @@ export default function Events() {
                 <Image
                   key={index}
                   src={src}
-                  alt=""
+                  alt="Windy City Ice Cream truck at a corporate event in Chicago"
                   width={250}
                   height={300}
                   className="w-62.5 h-75 object-cover rounded-xl shrink-0"

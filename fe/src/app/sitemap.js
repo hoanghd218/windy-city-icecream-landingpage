@@ -1,3 +1,5 @@
+import { SERVICE_AREAS } from "../lib/seo/service-areas";
+
 const SITE_URL = "https://windycityicecream.com";
 
 export default function sitemap() {
@@ -32,6 +34,18 @@ export default function sitemap() {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: `${SITE_URL}/service-areas`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    ...SERVICE_AREAS.map((area) => ({
+      url: `${SITE_URL}/service-areas/${area.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    })),
     {
       url: `${SITE_URL}/contact`,
       lastModified: new Date(),

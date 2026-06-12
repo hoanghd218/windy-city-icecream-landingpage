@@ -513,9 +513,9 @@ export default function About() {
               Nostalgia in Every Bite, Bringing Frozen Treats to You
             </p>
 
-            <h1 className="text-2xl md:text-4xl lg:text-[70px] font-bold text-primary font-archivo mb-4">
+            <h2 className="text-2xl md:text-4xl lg:text-[70px] font-bold text-primary font-archivo mb-4">
               Our Journey
-            </h1>
+            </h2>
 
             <p className="text-xs md:text-[16px] text-primary font-archivo mb-6">
               Windy City Ice Cream&apos;s journey began in 2010, founded as a
@@ -806,7 +806,7 @@ export default function About() {
                 <Image
                   key={index}
                   src={src}
-                  alt=""
+                  alt="Windy City Ice Cream truck serving guests at a Chicago-area event"
                   width={250}
                   height={300}
                   className="w-62.5 h-75 object-cover rounded-xl shrink-0"

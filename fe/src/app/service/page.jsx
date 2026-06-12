@@ -3,6 +3,8 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Chatbot from "../../components/Chatbot";
 import Image from "next/image";
+import Link from "next/link";
+import { SERVICE_AREAS, TRAVEL_TIERS } from "../../lib/seo/service-areas";
 import { useRef } from "react";
 import { useEffect } from "react";
 import gsap from "gsap";
@@ -191,10 +193,46 @@ useEffect(() => {
     <iframe
       ref={serviceMapRef}
       className="w-full max-w-[1247px] h-[300px] md:h-[600px] rounded-4xl opacity-0 translate-y-[120px] will-change-transform"
-      src="https://maps.google.com/maps?q=Chicago&t=&z=11&ie=UTF8&iwloc=&output=embed"
+      src="https://maps.google.com/maps?q=11641%20S%20Ridgeland%20Ave%2C%20Alsip%2C%20IL%2060803&t=&z=10&ie=UTF8&iwloc=&output=embed"
+      title="Windy City Ice Cream service area map — based in Alsip, IL"
       loading="lazy"
     ></iframe>
   </div>
+      </section>
+
+      {/* suburbs we serve */}
+      <section className="w-full bg-[#F0FBFF] pt-16 md:pt-24 flex justify-center">
+        <div className="max-w-[1000px] mx-auto px-4 text-center">
+          <h2 className="text-2xl md:text-[40px] font-bold text-primary font-archivo mb-3 uppercase">
+            Towns and Suburbs We Serve
+          </h2>
+          <p className="text-sm md:text-[16px] text-primary font-archivo max-w-[820px] mx-auto mb-8">
+            Travel fees are based on drive time from our Alsip base — many
+            south and southwest suburbs have no travel fee at all. Popular
+            destinations include Oak Lawn, Evergreen Park, Burbank, Palos
+            Hills, Orland Park, Tinley Park, Oak Forest, Joliet, Bolingbrook,
+            Naperville, Downers Grove, Oak Brook, and every Chicago
+            neighborhood.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {SERVICE_AREAS.map((a) => (
+              <Link
+                key={a.slug}
+                href={`/service-areas/${a.slug}`}
+                className="bg-white text-primary text-sm font-archivo px-4 py-2 rounded-full shadow-sm hover:bg-[#DAF5FF] transition-colors"
+              >
+                {a.name} · {TRAVEL_TIERS[a.tier].label}
+              </Link>
+            ))}
+          </div>
+          <p className="text-sm text-primary font-archivo mt-6">
+            Don&apos;t see your town?{" "}
+            <Link href="/service-areas" className="underline text-[#0072B0]">
+              Browse all service areas
+            </Link>{" "}
+            or ask our chat assistant for an instant travel-fee check.
+          </p>
+        </div>
       </section>
 
       <section className="w-full bg-[#F0FBFF] py-40 flex justify-center overflow-hidden">
@@ -238,7 +276,7 @@ useEffect(() => {
                 <Image
                   key={index}
                   src={src}
-                  alt=""
+                  alt="Windy City Ice Cream truck serving guests at a Chicago-area event"
                   width={250}
                   height={300}
                   className="w-62.5 h-75 object-cover rounded-xl shrink-0"

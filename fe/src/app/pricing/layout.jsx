@@ -1,12 +1,20 @@
+import { FaqJsonLd } from "../../components/json-ld";
+import { PRICING_FAQS } from "../../lib/seo/pricing-faqs";
+
 export const metadata = {
-  title: "Pricing",
+  title: "Pricing — Ice Cream Truck Catering Cost in Chicago",
   description:
-    "Get a custom quote for Windy City Ice Cream truck catering. Flexible pricing for events of all sizes in Cook, Will, and DuPage Counties.",
+    "Transparent ice cream truck catering pricing: $100/hour truck service, $4 per piece, travel fees by distance. Serving Cook, Will, and DuPage Counties.",
   alternates: {
     canonical: "https://windycityicecream.com/pricing",
   },
 };
 
 export default function Layout({ children }) {
-  return children;
+  return (
+    <>
+      <FaqJsonLd faqs={PRICING_FAQS} />
+      {children}
+    </>
+  );
 }
