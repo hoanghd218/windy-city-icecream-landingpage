@@ -30,16 +30,6 @@ const nextConfig = {
       },
     ];
   },
-  async redirects() {
-    return [
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.windycityicecream.com" }],
-        destination: "https://windycityicecream.com/:path*",
-        permanent: true,
-      },
-    ];
-  },
 };
 
 export default nextConfig;
