@@ -8,18 +8,31 @@ import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { trackGenerateLead } from "../../lib/analytics/track-lead";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const EMPTY_PREFILL = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  zip: "",
+  address: "",
+  people: "",
+  interest: "",
+  hours: "",
+  total: "",
+};
+
 export default function Contact() {
-  return (
-    <Suspense fallback={null}>
-      <ContactPageInner />
-    </Suspense>
-  );
+  return <ContactPageInner />;
 }
 
-function ContactPageInner() {
+// Reads the chatbot's query-string handoff (?firstName=...) to prefill the form.
+// Isolated behind its own Suspense boundary so the rest of the page (H1, nav,
+// footer, form markup) still renders in the initial HTML for crawlers/bots.
+function ContactPrefillForm() {
   const searchParams = useSearchParams();
   const prefill = {
     firstName: searchParams.get("firstName") || "",
@@ -33,13 +46,16 @@ function ContactPageInner() {
     hours: searchParams.get("hours") || "",
     total: searchParams.get("total") || "",
   };
-  // Pre-built notes so the operator sees the chatbot context
   const noteFromBot = [
     prefill.hours && `Event duration: ${prefill.hours} hour(s)`,
     prefill.total && `Estimated total from chatbot: $${prefill.total}`,
   ]
     .filter(Boolean)
     .join("\n");
+  return <ContactForm prefill={prefill} noteFromBot={noteFromBot} />;
+}
+
+function ContactPageInner() {
   const images = [
     "/image1.png",
     "/image2.png",
@@ -208,6 +224,7 @@ function ContactPageInner() {
           className="bg-[#57CEF7] pt-2 md:pt-[1px] pb-32 md:pb-60"
         >
           <Header />
+          <span id="main-content" />
 
           <div
             className="max-w-[1000px] mx-auto px-4 text-center mt-10 md:mt-15"
@@ -226,14 +243,20 @@ function ContactPageInner() {
         {/* IMAGE HALF IN / HALF OUT */}
         <div className=" w-full -mt-24 md:-mt-65 flex justify-center">
           <div className="min-h-screen flex items-center justify-center relative px-4 py-12">
-            <img
+            <Image
               src="/contact-cendy.png"
-              alt="icecream"
-              className="absolute lg:-left-15 lg:-top-5 left-0 top-0 w-10 md:w-30"
+              alt="Windy City Ice Cream mascot"
+              width={120}
+              height={120}
+              className="absolute lg:-left-15 lg:-top-5 left-0 top-0 w-10 md:w-30 h-auto"
             />
 
             <div className="bg-white w-full max-w-5xl rounded-xl shadow-md p-6 md:p-10">
-              <ContactForm prefill={prefill} noteFromBot={noteFromBot} />
+              <Suspense
+                fallback={<ContactForm prefill={EMPTY_PREFILL} noteFromBot="" />}
+              >
+                <ContactPrefillForm />
+              </Suspense>
             </div>
           </div>
         </div>
@@ -370,6 +393,7 @@ function ContactForm({ prefill, noteFromBot }) {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || "Submission failed");
+      trackGenerateLead("contact_page");
       setStatus({
         state: "success",
         message: "Thank you! We received your inquiry and will call you soon.",

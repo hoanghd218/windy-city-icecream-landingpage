@@ -4,6 +4,7 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import Chatbot from "../../../components/Chatbot";
 import { SERVICE_AREAS, TRAVEL_TIERS, getServiceArea } from "../../../lib/seo/service-areas";
+import { BreadcrumbJsonLd } from "../../../components/json-ld";
 
 const SITE_URL = "https://windycityicecream.com";
 
@@ -15,10 +16,15 @@ export async function generateMetadata({ params }) {
   const { city } = await params;
   const area = getServiceArea(city);
   if (!area) return {};
+  const canonical = `${SITE_URL}/service-areas/${area.slug}`;
+  const title = `Ice Cream Truck Catering in ${area.name}, IL`;
+  const description = `Ice cream truck catering in ${area.name}, IL, serving all of ${area.county} for parties, schools, and corporate events.`;
   return {
-    title: `Ice Cream Truck Catering in ${area.name}, IL`,
-    description: `Book an ice cream truck for your ${area.name} event. Windy City Ice Cream serves ${area.name} and all of ${area.county} with truck and pushcart catering for parties, schools, and corporate events.`,
-    alternates: { canonical: `${SITE_URL}/service-areas/${area.slug}` },
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: { url: canonical, title, description },
+    twitter: { title, description },
   };
 }
 
@@ -50,8 +56,16 @@ export default async function ServiceAreaPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: SITE_URL },
+          { name: "Service Areas", url: `${SITE_URL}/service-areas` },
+          { name: `${area.name}, IL`, url: `${SITE_URL}/service-areas/${area.slug}` },
+        ]}
+      />
       <section className="bg-[#57CEF7] pt-2 md:pt-[1px] pb-16 md:pb-24">
         <Header />
+        <span id="main-content" />
         <div className="max-w-[1000px] mx-auto px-4 text-center mt-10 md:mt-15">
           <p className="text-secound font-architect mb-2 text-sm md:text-[24px]">
             Serving {area.county}

@@ -162,6 +162,7 @@ useEffect(() => {
       <section className="relative bg-[#F0FBFF]">
          <div ref={serviceBgRef} className="bg-[#57CEF7] pt-2 md:pt-[1px] pb-32 md:pb-60">
           <Header />
+          <span id="main-content" />
 
           <div
             className="max-w-[1000px] mx-auto px-4 text-center mt-10 md:mt-15 *:opacity-0 *:-translate-y-[50px] *:will-change-transform"

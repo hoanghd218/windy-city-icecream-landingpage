@@ -441,6 +441,7 @@ export default function Events() {
           className="bg-[#57CEF7] pt-2 md:pt-[1px] pb-32 md:pb-60"
         >
           <Header />
+          <span id="main-content" />
 
           <div
             ref={heroTextRef}
@@ -462,10 +463,12 @@ export default function Events() {
         <div className="overflow-hidden w-full -mt-24 md:-mt-45">
           <div className="flex gap-2 animate-scroll w-max hover:[animation-play-state:paused]">
             {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, i) => (
-              <img
+              <Image
                 key={i}
                 src={`/image${item}.png`}
                 alt={`Ice cream catering event photo ${item}`}
+                width={267}
+                height={402}
                 className="w-[267px] h-[402px] object-cover rounded-xl flex-shrink-0"
               />
             ))}

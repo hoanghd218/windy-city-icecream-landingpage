@@ -70,6 +70,7 @@ export default function Pricing() {
           className="bg-[#57CEF7] pt-2 md:pt-[1px] pb-40 md:pb-56"
         >
           <Header />
+          <span id="main-content" />
           <div
             className="max-w-[1000px] mx-auto px-4 text-center mt-10 md:mt-25"
             ref={serviceTextRef}

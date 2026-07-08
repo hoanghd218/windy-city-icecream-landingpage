@@ -574,7 +574,7 @@ export default function Home() {
 }
       `}</style>
 
-      <main className="relative lg:min-h-screen min-h-120 lg:pb-16">
+      <main id="main-content" className="relative lg:min-h-screen min-h-120 lg:pb-16">
         <svg width="0" height="0" className="absolute pointer-events-none">
           <filter id="remove-black" colorInterpolationFilters="sRGB">
             <feColorMatrix type="matrix" values="
@@ -625,12 +625,13 @@ export default function Home() {
               key={i}
               src={p.src}
               alt=""
+              width={p.size}
+              height={p.size}
+              loading="lazy"
               style={{
                 position: "absolute",
                 left: `${p.left}%`,
                 top: "-60px",
-                width: p.size,
-                height: p.size,
                 objectFit: "contain",
                 animation: `rainFall ${p.dur}s linear ${p.delay}s infinite`,
                 "--r0": p.r0,

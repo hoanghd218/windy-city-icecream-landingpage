@@ -448,6 +448,7 @@ export default function About() {
       <section className="relative bg-[#F0FBFF]">
         <div ref={heroBgRef} className="bg-[#57CEF7] pt-2 md:pt-[1px] pb-32 md:pb-60">
           <Header />
+          <span id="main-content" />
 
           <div className="max-w-[1500px] mx-auto px-4 text-center mt-10 md:mt-15">
             <h1 className="text-3xl md:text-[60px] font-bold text-primary font-archivo mb-4">
@@ -574,10 +575,12 @@ export default function About() {
       <div className="overflow-hidden w-full">
         <div className="flex gap-2 animate-scroll w-max hover:[animation-play-state:paused]">
           {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, i) => (
-            <img
+            <Image
               key={i}
               src={`/image${item}.png`}
               alt={`Windy City Ice Cream event photo ${item}`}
+              width={267}
+              height={300}
               className="w-[267px] h-[300px] object-cover rounded-xl flex-shrink-0"
             />
           ))}

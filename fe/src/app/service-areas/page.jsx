@@ -3,23 +3,30 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Chatbot from "../../components/Chatbot";
 import { SERVICE_AREAS, TRAVEL_TIERS } from "../../lib/seo/service-areas";
+import { buildPageMetadata } from "../../lib/seo/page-metadata";
+import { BreadcrumbJsonLd } from "../../components/json-ld";
 
-const SITE_URL = "https://windycityicecream.com";
-
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Service Areas — Chicagoland Ice Cream Truck Catering",
   description:
-    "Windy City Ice Cream serves Chicago and suburbs across Cook, Will, and DuPage Counties. Find your town and book an ice cream truck for your next event.",
-  alternates: { canonical: `${SITE_URL}/service-areas` },
-};
+    "Windy City Ice Cream serves Chicago and suburbs across Cook, Will, and DuPage Counties. Find your town and book a truck.",
+  path: "/service-areas",
+});
 
 const COUNTIES = ["Cook County", "Will County", "DuPage County"];
 
 export default function ServiceAreasIndex() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "https://windycityicecream.com" },
+          { name: "Service Areas", url: "https://windycityicecream.com/service-areas" },
+        ]}
+      />
       <section className="bg-[#57CEF7] pt-2 md:pt-[1px] pb-16 md:pb-24">
         <Header />
+        <span id="main-content" />
         <div className="max-w-[1000px] mx-auto px-4 text-center mt-10 md:mt-15">
           <p className="text-secound font-architect mb-2 text-sm md:text-[24px]">
             Based in Alsip, IL — serving all of Chicagoland

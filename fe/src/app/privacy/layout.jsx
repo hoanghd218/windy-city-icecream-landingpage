@@ -2,10 +2,10 @@ import { buildPageMetadata } from "../../lib/seo/page-metadata";
 import { BreadcrumbJsonLd } from "../../components/json-ld";
 
 export const metadata = buildPageMetadata({
-  title: "Corporate Events & Catering",
+  title: "Privacy Policy",
   description:
-    "Hassle-free ice cream truck catering for corporate events, team celebrations, and company parties in Chicago.",
-  path: "/events",
+    "How Windy City Ice Cream collects, uses, and protects information from our website, contact form, and chat assistant.",
+  path: "/privacy",
 });
 
 export default function Layout({ children }) {
@@ -14,7 +14,7 @@ export default function Layout({ children }) {
       <BreadcrumbJsonLd
         items={[
           { name: "Home", url: "https://windycityicecream.com" },
-          { name: "Corporate Events", url: "https://windycityicecream.com/events" },
+          { name: "Privacy Policy", url: "https://windycityicecream.com/privacy" },
         ]}
       />
       {children}

@@ -76,6 +76,27 @@ export function WebsiteJsonLd() {
   );
 }
 
+// items: [{ name, url }] in order from Home to the current page.
+export function BreadcrumbJsonLd({ items }) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
 export function FaqJsonLd({ faqs }) {
   const schema = {
     "@context": "https://schema.org",

@@ -73,6 +73,12 @@ export default function Header() {
 
   return (
     <header className="w-full px-4 mt-4 sticky top-0 z-50">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:text-[#00334E] focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg"
+      >
+        Skip to main content
+      </a>
       <div
         className={`flex items-center justify-between max-w-375 mx-auto bg-white/90 backdrop-blur-md rounded-full px-6 sm:px-12 py-3 transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}
         ref={navInnerRef}
@@ -83,6 +89,8 @@ export default function Header() {
             alt="Windy City Ice Cream logo"
             width={108}
             height={80}
+            priority
+            fetchPriority="high"
             className="w-12.5 sm:w-22.5 lg:w-27 h-auto"
           />
         </Link>

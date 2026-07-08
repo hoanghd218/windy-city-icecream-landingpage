@@ -1,0 +1,18 @@
+# Windy City Ice Cream
+
+> Ice cream truck and pushcart catering for corporate events, parties, and celebrations across Chicagoland — Cook, Will, and DuPage Counties, based in Alsip, IL.
+
+Windy City Ice Cream is a woman-owned ice cream truck catering business serving the Chicago area for over a decade. Bookings include a professional, uniformed driver, name-brand frozen treats (Good Humor, Blue Bunny, Mars), and menu customization including nut-free options. Operating May through mid-September.
+
+## Key pages
+
+- [Home](https://windycityicecream.com/): overview and booking entry point
+- [About](https://windycityicecream.com/about): company background, fleet, and drivers
+- [Pricing](https://windycityicecream.com/pricing): truck/cart rates and travel fees
+- [Service Areas](https://windycityicecream.com/service-areas): Cook, Will, and DuPage County coverage by town
+- [Corporate Events](https://windycityicecream.com/events): corporate catering details
+- [Contact](https://windycityicecream.com/contact): booking form and phone number
+
+## Contact
+
+Phone: (708) 529-8875

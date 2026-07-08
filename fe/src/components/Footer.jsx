@@ -5,10 +5,58 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const SITE_URL = "https://windycityicecream.com";
+const SHARE_TITLE = "Windy City Ice Cream — Chicago Ice Cream Truck Catering";
+
+function ShareButtons({ pathname }) {
+  const pageUrl = `${SITE_URL}${pathname}`;
+  const links = [
+    {
+      label: "Share on Facebook",
+      href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`,
+      color: "#1877F2",
+      path: "M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z",
+    },
+    {
+      label: "Share on X",
+      href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(SHARE_TITLE)}`,
+      color: "#000000",
+      path: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z",
+    },
+    {
+      label: "Share on LinkedIn",
+      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`,
+      color: "#0A66C2",
+      path: "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 110-4.124 2.062 2.062 0 010 4.124zM7.114 20.452H3.558V9h3.556v11.452z",
+    },
+  ];
+
+  return (
+    <div className="flex gap-3 mb-6" role="group" aria-label="Share this page">
+      {links.map((l) => (
+        <a
+          key={l.label}
+          href={l.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={l.label}
+          className="w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-sm hover:shadow-md hover:scale-110 transition-all duration-300 cursor-pointer"
+        >
+          <svg className="w-4 h-4" style={{ color: l.color }} fill="currentColor" viewBox="0 0 24 24">
+            <path d={l.path} />
+          </svg>
+        </a>
+      ))}
+    </div>
+  );
+}
+
 export default function Footer() {
+  const pathname = usePathname();
   const outerBgRef = useRef(null);
   const circleWrapRef = useRef(null);
   const contentRef = useRef(null);
@@ -150,12 +198,15 @@ export default function Footer() {
               </a>
             </div>
 
+            <ShareButtons pathname={pathname} />
+
             <div className="flex flex-wrap justify-center gap-6 text-sm md:text-[16px] text-primary font-archivo mb-10">
                <Link href="/">Home</Link>
           <Link href="/about">About</Link>
           <Link href="/service">Service Area</Link>
           <Link href="/events">Corporate events</Link>
           <Link href="/contact">Contact</Link>
+          <Link href="/privacy">Privacy Policy</Link>
           <a
             href="https://harlowlink.ipospays.com/portalApi/sl/KILtj_100626122413"
             target="_blank"

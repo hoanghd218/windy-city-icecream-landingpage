@@ -13,7 +13,7 @@ export const metadata = {
     template: "%s | Windy City Ice Cream",
   },
   description:
-    "Windy City Ice Cream brings the joy of ice cream truck catering to Chicago and the suburbs. Serving Cook, Will, and DuPage Counties for corporate events, parties, and celebrations.",
+    "Windy City Ice Cream brings ice cream truck catering to Chicago and the suburbs, serving Cook, Will, and DuPage Counties for events and parties.",
   keywords: [
     "ice cream truck catering",
     "Chicago ice cream truck",

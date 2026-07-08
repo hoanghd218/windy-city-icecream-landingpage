@@ -1,12 +1,23 @@
-export const metadata = {
+import { buildPageMetadata } from "../../lib/seo/page-metadata";
+import { BreadcrumbJsonLd } from "../../components/json-ld";
+
+export const metadata = buildPageMetadata({
   title: "About Us",
   description:
-    "Learn about Windy City Ice Cream — Chicago's favorite ice cream truck catering service. Our fleet, custom menus, and professional drivers make every event special.",
-  alternates: {
-    canonical: "https://windycityicecream.com/about",
-  },
-};
+    "Learn about Windy City Ice Cream, Chicago's favorite ice cream truck catering service — our fleet, menus, and professional drivers.",
+  path: "/about",
+});
 
 export default function Layout({ children }) {
-  return children;
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "https://windycityicecream.com" },
+          { name: "About Us", url: "https://windycityicecream.com/about" },
+        ]}
+      />
+      {children}
+    </>
+  );
 }

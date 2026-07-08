@@ -53,7 +53,19 @@ export default function sitemap() {
       priority: 0.9,
     },
     {
+      url: `${SITE_URL}/quote`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${SITE_URL}/refunds`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${SITE_URL}/privacy`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.3,
