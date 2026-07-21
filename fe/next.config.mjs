@@ -5,6 +5,7 @@ const CSP = [
   "img-src 'self' data: https:",
   "font-src 'self' https://fonts.gstatic.com",
   "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com",
+  "frame-src 'self' https://www.google.com https://maps.google.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",
