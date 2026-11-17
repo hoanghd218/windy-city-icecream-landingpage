@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "windy-city-icecream",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "account_id": "96405d24b8d8263f756381a5822b2f1d",
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "routes": [
+    { "pattern": "windycityicecream.com", "custom_domain": true },
+    { "pattern": "www.windycityicecream.com", "custom_domain": true }
+  ],
+  "observability": { "enabled": true },
+  "vars": {
+    "WAREHOUSE_ADDRESS": "10525 S Ridgeland Ave, Alsip, IL 60803"
+  }
+}

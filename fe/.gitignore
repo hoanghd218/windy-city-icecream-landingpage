@@ -1,1 +1,9 @@
 .vercel
+
+# local env files (pulled from Vercel)
+.env*.local
+
+# Cloudflare / OpenNext
+.open-next
+.wrangler
+.dev.vars
